@@ -20,6 +20,7 @@ const App = withNavigation(
 interface AppContainerProps extends PropsWithChildren {}
 
 //   MARK: - AppContainer
+
 const AppContainer = ({children}: AppContainerProps) => {
   const [config] = useState<{isLoggedIn: boolean; userRole: UserTypes}>({
     isLoggedIn: false,

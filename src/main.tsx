@@ -1,8 +1,12 @@
+import {Fragment} from 'react'
 import ReactDOM from 'react-dom/client'
 
+import {GlobalStyle} from 'src/theme'
 import {App} from 'src/app'
-import './index.scss'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <App />
+  <Fragment>
+    <GlobalStyle />
+    <App />
+  </Fragment>
 )
