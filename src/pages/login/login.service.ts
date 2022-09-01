@@ -7,4 +7,11 @@ const login = async (data: {email: string; password: string}) => {
   return response.data.data.data
 }
 
-export const loginService = {login}
+// MARK: - authenticateUser
+const authenticateUser = async () => {
+  const response = await api.get('users')
+
+  return response.data.data.data
+}
+
+export const loginService = {login, authenticateUser}

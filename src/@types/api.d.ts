@@ -12,8 +12,11 @@ declare namespace Api {
 
   // TODO: - Add API types down here
   interface Session {
-    id: number
-    email: string
+    user: {
+      id: number
+      email: string
+      role: string
+    }
     token: string
   }
 }
