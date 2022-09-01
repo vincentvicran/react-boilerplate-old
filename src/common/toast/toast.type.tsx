@@ -1,16 +1,17 @@
-export type ToastObject = {message?: string; type?: string; header?: string}
+export type ToastType = 'success' | 'error' | 'info' | 'warning'
+export type ToastArg = {message?: string; type?: ToastType; header?: string}
 export type ItemObject = {
   key: number
   message: string
-  type: string
+  type: ToastType
   header?: string
 }
 
-export interface ToastItemProps {
-  child: (arg: (toastObj: ToastObject) => void) => void
+export interface ToastProps {
+  child: (arg: (toastObj: ToastArg) => void) => void
   dark?: boolean
   message?: string
-  type?: string
+  type?: ToastType
   timeout?: number
   style?: React.CSSProperties
   closeIcon?: boolean
@@ -18,16 +19,15 @@ export interface ToastItemProps {
   noHeader?: boolean
 }
 
-export type ToastItem = {
+export type ToastItemProps = {
   message?: string
   dark?: boolean
-  type?: string
+  type?: ToastType
   style?: React.CSSProperties
   keyValue?: number
   timeout?: number
   closeIcon?: boolean
   closeToast?: boolean
-  onRest?: false | (() => void)
   header?: string
   noHeader?: boolean
 }
