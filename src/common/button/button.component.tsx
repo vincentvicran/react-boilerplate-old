@@ -19,44 +19,6 @@ import {ButtonLoader} from './components'
 const ButtonTextAnimated = makeAnimatedComponent(ButtonText)
 const RippleItemAnimated: any = makeAnimatedComponent(RippleItem)
 
-const ButtonTextContainer = (props: ButtonProps) => {
-  const {
-    title,
-    textStyle,
-    leftIcon,
-    disabled,
-    rightIcon,
-    loading,
-    variant,
-    children,
-    color = 'default'
-  } = props
-  return (
-    <ButtonTextAnimated
-      style={{
-        ...textStyle
-      }}
-    >
-      {loading ? (
-        <ButtonLoader variant={variant} color={color} disabled={disabled} />
-      ) : (
-        <>
-          {leftIcon}
-          <span
-            style={{
-              padding: rightIcon || leftIcon ? '8px' : ''
-            }}
-          >
-            {title}
-            {children}
-          </span>
-          {rightIcon}
-        </>
-      )}
-    </ButtonTextAnimated>
-  )
-}
-
 export const Button = forwardRef((props: ButtonProps, ref: any) => {
   const {
     title,
@@ -106,42 +68,6 @@ export const Button = forwardRef((props: ButtonProps, ref: any) => {
     </div>
   )
 })
-
-function Ripple({x, y, color, variant, rippleColor}: RippleProps): any {
-  const [opened, setOpened] = useState(true)
-  const openRipple = useMountedValue(opened, {
-    from: 0,
-    enter: 1,
-    exit: 2,
-    config: {duration: 700}
-  })
-
-  useEffect(() => {
-    setOpened(false)
-  }, [])
-
-  return openRipple(
-    (animation, mounted) =>
-      mounted && (
-        <RippleItemAnimated
-          style={{
-            position: 'absolute',
-            zIndex: 10,
-            width: 100,
-            height: 100,
-            borderRadius: '50%',
-            left: x - 50,
-            top: y - 50,
-            backgroundColor: rippleColor,
-            scale: animation.value,
-            opacity: interpolate(animation.value, [0, 1, 2], [0, 0.3, 0])
-          }}
-          color={color}
-          variant={variant}
-        />
-      )
-  )
-}
 
 export const RippleButton = forwardRef((props: ButtonProps, ref: any) => {
   const {
@@ -219,3 +145,81 @@ export const RippleButton = forwardRef((props: ButtonProps, ref: any) => {
     </div>
   )
 })
+
+// MARK: - Ripple
+
+function Ripple({x, y, color, variant, rippleColor}: RippleProps): any {
+  const [opened, setOpened] = useState(true)
+  const openRipple = useMountedValue(opened, {
+    from: 0,
+    enter: 1,
+    exit: 2,
+    config: {duration: 700}
+  })
+
+  useEffect(() => {
+    setOpened(false)
+  }, [])
+
+  return openRipple(
+    (animation, mounted) =>
+      mounted && (
+        <RippleItemAnimated
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            width: 100,
+            height: 100,
+            borderRadius: '50%',
+            left: x - 50,
+            top: y - 50,
+            backgroundColor: rippleColor,
+            scale: animation.value,
+            opacity: interpolate(animation.value, [0, 1, 2], [0, 0.3, 0])
+          }}
+          color={color}
+          variant={variant}
+        />
+      )
+  )
+}
+
+// MARK: - ButtonTextContainer
+
+const ButtonTextContainer = (props: ButtonProps) => {
+  const {
+    title,
+    textStyle,
+    leftIcon,
+    disabled,
+    rightIcon,
+    loading,
+    variant,
+    children,
+    color = 'default'
+  } = props
+  return (
+    <ButtonTextAnimated
+      style={{
+        ...textStyle
+      }}
+    >
+      {loading ? (
+        <ButtonLoader variant={variant} color={color} disabled={disabled} />
+      ) : (
+        <>
+          {leftIcon}
+          <span
+            style={{
+              padding: rightIcon || leftIcon ? '8px' : ''
+            }}
+          >
+            {title}
+            {children}
+          </span>
+          {rightIcon}
+        </>
+      )}
+    </ButtonTextAnimated>
+  )
+}

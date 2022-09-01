@@ -11,7 +11,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  margin: 5px;
   padding: 8px 16px;
   min-width: 115px;
   height: 36px;
@@ -27,8 +26,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   position: relative;
   overflow: hidden;
   z-index: 9;
-  //swapping the main color to background color from colorOptions
-  //for text and oultined variant
   ${({color, variant}) =>
     variant && (variant === 'text' || variant === 'outlined')
       ? color &&
