@@ -170,7 +170,7 @@ export const RippleButton = forwardRef((props: ButtonProps, ref: any) => {
         display: 'inline-block'
       }}
     >
-      {disabled ? (
+      {disabled || loading ? (
         <DisabledStyledButton
           style={{...style, cursor: disabled ? 'not-allowed' : 'default'}}
           variant={variant}

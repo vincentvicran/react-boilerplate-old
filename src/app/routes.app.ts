@@ -1,12 +1,12 @@
 import {PublicPath, PrivatePath} from 'react-auth-navigation'
 
-const SamplePage = () => <div>SAMPLE PAGE</div>
+import {Sample} from 'src/pages/sample'
 
 const publicPaths: PublicPath = [
   {
     name: 'Root',
     path: '/',
-    component: SamplePage,
+    component: Sample,
     restricted: true
   }
 ]
