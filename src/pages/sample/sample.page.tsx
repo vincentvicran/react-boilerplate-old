@@ -1,9 +1,7 @@
 import {RippleButton} from 'src/common/button'
 import {Toast, ToastContainer, useToast} from 'src/common/toast'
 
-import {api} from 'src/api'
-
-export const Sample = async () => {
+export const Sample = () => {
   const {handler, toast} = useToast()
 
   return (
