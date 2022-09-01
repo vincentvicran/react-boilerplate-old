@@ -17,17 +17,28 @@ const App = withNavigation(
   }
 )
 
-interface AppContainerProps extends PropsWithChildren {}
-
 //   MARK: - AppContainer
 
-const AppContainer = ({children}: AppContainerProps) => {
-  const [config] = useState<{isLoggedIn: boolean; userRole: UserTypes}>({
+const AppContainer = ({children}: PropsWithChildren) => {
+  const [config, setConfig] = useState<{
+    isLoggedIn: boolean
+    userRole: UserTypes
+  }>({
     isLoggedIn: false,
     userRole: 'USER'
   })
 
-  return <Auth config={config}>{children}</Auth>
+  return (
+    <Auth
+      config={config}
+      state={{
+        login: () => setConfig({isLoggedIn: true, userRole: 'USER'}),
+        logout: () => setConfig({isLoggedIn: false, userRole: 'USER'})
+      }}
+    >
+      {children}
+    </Auth>
+  )
 }
 
 export {App}
