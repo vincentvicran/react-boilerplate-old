@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "chroma-js": "^2.4.2",
     "react": "^18.2.0",
     "react-auth-navigation": "^1.2.1",
@@ -16,7 +17,8 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^5.3.3",
     "react-ui-animate": "^2.0.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/chroma-js": "^2.1.4",
