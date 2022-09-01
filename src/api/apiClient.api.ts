@@ -25,41 +25,28 @@ instance.interceptors.request.use(async (request) => {
   return request
 })
 
+// TODO: - intercept the params as well
+
+const getInstance =
+  (method: 'GET' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' | 'PATCH') =>
+  <T extends keyof PathToResponse>(
+    url: T,
+    data?: PathToResponse[T]['body'],
+    config?: Omit<
+      AxiosRequestConfig<any>,
+      'baseURL' | 'url' | 'method' | 'data'
+    >
+  ): Promise<AxiosResponse<PathToResponse[T]['response']>> =>
+    instance({url, method, data, ...config})
+
 const api = {
-  get: <T extends keyof PathToResponse>(
-    url: T,
-    config?: AxiosRequestConfig<any>
-  ): Promise<AxiosResponse<PathToResponse[T]>> => instance.get(url, config),
-  delete: <T extends keyof PathToResponse>(
-    url: T,
-    config?: AxiosRequestConfig<any>
-  ): Promise<AxiosResponse<PathToResponse[T]>> => instance.delete(url, config),
-  head: <T extends keyof PathToResponse>(
-    url: T,
-    config?: AxiosRequestConfig<any>
-  ): Promise<AxiosResponse<PathToResponse[T]>> => instance.head(url, config),
-  options: <T extends keyof PathToResponse>(
-    url: T,
-    config?: AxiosRequestConfig<any>
-  ): Promise<AxiosResponse<PathToResponse[T]>> => instance.options(url, config),
-  post: <T extends keyof PathToResponse>(
-    url: T,
-    data: any,
-    config?: AxiosRequestConfig<any>
-  ): Promise<AxiosResponse<PathToResponse[T]>> =>
-    instance.post(url, data, config),
-  put: <T extends keyof PathToResponse>(
-    url: T,
-    data: any,
-    config?: AxiosRequestConfig<any>
-  ): Promise<AxiosResponse<PathToResponse[T]>> =>
-    instance.put(url, data, config),
-  patch: <T extends keyof PathToResponse>(
-    url: T,
-    data: any,
-    config?: AxiosRequestConfig<any>
-  ): Promise<AxiosResponse<PathToResponse[T]>> =>
-    instance.patch(url, data, config)
+  get: getInstance('GET'),
+  delete: getInstance('DELETE'),
+  head: getInstance('HEAD'),
+  options: getInstance('OPTIONS'),
+  post: getInstance('POST'),
+  put: getInstance('PUT'),
+  patch: getInstance('PATCH')
 }
 
 export {instance, api}

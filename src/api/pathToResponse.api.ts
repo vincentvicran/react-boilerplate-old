@@ -2,17 +2,24 @@
  * Interface PathToResponse defines the type for path key and their response
  * each api must have their respective path key type and their response type
  *
- * dynamic paths: [path: string]: ResponseType
- * static paths: string: ResponseType
+ * dynamic paths: [path: string]: ResponseType { params, body, response }
+ * static paths: string: ResponseType { params, body, response }
  *
  * NOTE: The path string mustn't have a leading slash '/'
  */
 
 export interface PathToResponse {
-  'users/list': {
-    data: Array<string>
+  'auth/login': {
+    params: never
+    body: {
+      email: string
+      password: string
+    }
+    response: Api.Base<Api.Session>
   }
   [path: `user/${number}`]: {
-    name: string
+    params: never
+    body: never
+    response: never
   }
 }
