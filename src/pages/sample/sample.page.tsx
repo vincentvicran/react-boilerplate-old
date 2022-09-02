@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-import {RippleButton} from 'src/common/button'
+import {Button} from 'src/common/button'
 import {Toast, ToastContainer, useToast} from 'src/common/toast'
 import {Modal} from 'src/common/modal'
 import {Dropdown} from 'src/common/dropdown'
@@ -12,17 +12,15 @@ export const Sample = () => {
 
   return (
     <>
-      <RippleButton color="success" onClick={() => toast.success()}>
+      <Button color="success" onClick={() => toast.success()}>
         Open Toast
-      </RippleButton>
+      </Button>
 
-      <RippleButton color="info" onClick={() => setOpen(true)}>
+      <Button color="info" onClick={() => setOpen(true)}>
         Open Modal
-      </RippleButton>
+      </Button>
 
-      <Dropdown
-        trigger={() => <RippleButton color="secondary">Open Menu</RippleButton>}
-      >
+      <Dropdown trigger={() => <Button color="secondary">Open Menu</Button>}>
         <Menu.Container>
           <Menu.Item onClick={() => false}>First Element</Menu.Item>
           <Menu.Item onClick={() => false}>Second Element</Menu.Item>
@@ -33,9 +31,7 @@ export const Sample = () => {
         </Menu.Container>
       </Dropdown>
 
-      <Dropdown
-        trigger={() => <RippleButton>Open Custom Dropdown</RippleButton>}
-      >
+      <Dropdown trigger={() => <Button>Open Custom Dropdown</Button>}>
         <div
           style={{
             width: 240,
@@ -48,9 +44,9 @@ export const Sample = () => {
 
       <Modal visible={open} onOutsideClick={() => setOpen(false)}>
         <h3>CONTENT GOES HERE</h3>
-        <RippleButton color="error" onClick={() => setOpen(false)}>
+        <Button color="error" onClick={() => setOpen(false)}>
           Close Modal
-        </RippleButton>
+        </Button>
       </Modal>
 
       <ToastContainer>

@@ -19,7 +19,7 @@ import {ButtonLoader} from './components'
 const ButtonTextAnimated = makeAnimatedComponent(ButtonText)
 const RippleItemAnimated: any = makeAnimatedComponent(RippleItem)
 
-export const Button = forwardRef((props: ButtonProps, ref: any) => {
+const DefaultButton = forwardRef((props: ButtonProps, ref: any) => {
   const {
     title,
     style,
@@ -69,7 +69,7 @@ export const Button = forwardRef((props: ButtonProps, ref: any) => {
   )
 })
 
-export const RippleButton = forwardRef((props: ButtonProps, ref: any) => {
+const RippleButton = forwardRef((props: ButtonProps, ref: any) => {
   const {
     title,
     style,
@@ -147,7 +147,6 @@ export const RippleButton = forwardRef((props: ButtonProps, ref: any) => {
 })
 
 // MARK: - Ripple
-
 function Ripple({x, y, color, variant, rippleColor}: RippleProps): any {
   const [opened, setOpened] = useState(true)
   const openRipple = useMountedValue(opened, {
@@ -185,7 +184,6 @@ function Ripple({x, y, color, variant, rippleColor}: RippleProps): any {
 }
 
 // MARK: - ButtonTextContainer
-
 const ButtonTextContainer = (props: ButtonProps) => {
   const {
     title,
@@ -223,3 +221,16 @@ const ButtonTextContainer = (props: ButtonProps) => {
     </ButtonTextAnimated>
   )
 }
+
+export const Button = forwardRef(
+  (
+    {rippleButton = true, ...rest}: ButtonProps & {rippleButton?: boolean},
+    ref: any
+  ) => {
+    if (rippleButton) {
+      return <RippleButton ref={ref} {...rest} />
+    }
+
+    return <DefaultButton ref={ref} {...rest} />
+  }
+)
