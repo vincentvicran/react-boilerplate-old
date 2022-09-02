@@ -6,12 +6,27 @@ import {loginService} from './login.service'
 
 const login = createAsyncThunk(
   'login/login',
-  async (data: {email: string; password: string}, thunkAPI) => {
+  async (
+    {
+      email,
+      password,
+      onSuccess
+    }: {
+      email: string
+      password: string
+      onSuccess: (data: Api.Session) => void
+    },
+    thunkAPI
+  ) => {
     try {
-      const response = await loginService.login(data)
+      const response = await loginService.login({
+        email,
+        password
+      })
       if (response.token) {
         setCookie('@token', response.token)
       }
+      onSuccess(response)
       return response
     } catch (error) {
       return thunkAPI.rejectWithValue('Cannot Login!')

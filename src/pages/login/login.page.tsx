@@ -1,3 +1,4 @@
+import {useAuth} from 'react-auth-navigation'
 import {useFormInput} from 'use-form-input'
 
 import {useDispatch, useSelector} from 'src/store'
@@ -5,6 +6,7 @@ import {useDispatch, useSelector} from 'src/store'
 import {login} from './login.slice'
 
 export const Login = () => {
+  const auth = useAuth()
   const dispatch = useDispatch()
   const {loading} = useSelector((state) => state.login)
 
@@ -15,7 +17,13 @@ export const Login = () => {
     },
     (values) => {
       if (values.email && values.password) {
-        dispatch(login({email: values.email, password: values.password}))
+        dispatch(
+          login({
+            email: values.email,
+            password: values.password,
+            onSuccess: () => auth.login()
+          })
+        )
       }
     }
   )
