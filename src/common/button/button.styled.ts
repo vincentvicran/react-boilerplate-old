@@ -19,7 +19,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   box-shadow: ${Theme.shadows.$z1};
   border: 1px solid ${colors.light.lightBorderColor};
   outline: none;
-  border-radius: 6px;
+  border-radius: ${Theme.radius.$default};
   font-weight: bold;
   cursor: pointer;
   color: ${colors.light.defaultTextColor};
@@ -178,20 +178,9 @@ const ButtonText = styled.div`
   justify-content: center;
   font-size: 12px;
   font-smooth: 10em;
-  // font-family: Inter;
   padding: 0;
   margin: 0;
   flex: 1;
-`
-
-const IconContainer = styled.div`
-  position: relative;
-  zindex: 10;
-  display: flex;
-  alignitems: center;
-  justifycontent: center;
-  fontsmooth: 10em;
-  fontsize: 25px;
 `
 
 const RippleContainer = styled.div`
@@ -200,8 +189,7 @@ const RippleContainer = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  pointerevents: none;
-  borderradius: 50%;
+  pointer-events: none;
   overflow: hidden;
   z-index: 9;
 `
@@ -223,7 +211,6 @@ export {
   IconStyledButton,
   ButtonText,
   DisabledIconStyledButton,
-  IconContainer,
   RippleContainer,
   RippleItem
 }

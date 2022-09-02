@@ -12,7 +12,7 @@ export const Sample = () => {
 
   return (
     <>
-      <Button color="success" onClick={() => toast.success()}>
+      <Button color="success" onClick={() => toast.success('Some message')}>
         Open Toast
       </Button>
 

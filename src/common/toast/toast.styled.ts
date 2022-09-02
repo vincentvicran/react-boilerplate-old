@@ -45,22 +45,22 @@ const ToastIndicator = styled.div`
 `
 
 const Message = styled.div`
-  font-size: 14px;
+  font-size: ${Theme.fontSizes.$3};
   color: black;
   display: flex;
   justify-content: center;
   align-items: start;
-  gap: 4px;
+  gap: 3px;
   flex-direction: column;
 `
 
 const MessageHeader = styled.div`
-  font-size: 12px;
+  font-size: ${Theme.fontSizes.$3};
+  font-weight: ${Theme.fontWeights.$medium};
 `
 
 const MessageContent = styled.div`
-  font-size: 10px;
-  font-weight: 300;
+  font-size: ${Theme.fontSizes.$2};
   color: #919191;
 `
 
