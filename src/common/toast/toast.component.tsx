@@ -18,7 +18,8 @@ import {
   ToastIconContainer,
   ToastIndicator,
   MessageHeader,
-  MessageContent
+  MessageContent,
+  ToastContainer
 } from './toast.style'
 import {toastData} from './constants'
 
@@ -72,7 +73,7 @@ export const Toast = ({
   }, [child])
 
   return (
-    <>
+    <ToastContainer>
       {items.map((item, i) => (
         <ToastItem
           key={i}
@@ -88,12 +89,11 @@ export const Toast = ({
           noHeader={noHeader}
         />
       ))}
-    </>
+    </ToastContainer>
   )
 }
 
 // MARK: - ToastItem
-
 const ToastItem = ({
   message,
   type = 'success',

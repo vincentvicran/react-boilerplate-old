@@ -1,26 +1,58 @@
 import {Children, CSSProperties} from 'react'
+import Theme from 'src/theme'
 
-import {HStackContainer} from './stack.style'
+import {HStackContainer, VStackContainer} from './stack.style'
 
-interface HStackProps {
+interface StackProps {
   children?: any
-  gap?: number
+  gap?: keyof typeof Theme.space
   style?: CSSProperties
+  justify?: CSSProperties['justifyContent']
+  align?: CSSProperties['alignItems']
 }
 
-export const HStack = ({children, gap = 8, style}: HStackProps) => {
-  const gapStyles = {
-    width: gap
-  }
-
+export const HStack = ({
+  children,
+  gap = '$2',
+  style,
+  justify = 'flex-start',
+  align = 'stretch'
+}: StackProps) => {
   return (
-    <HStackContainer style={style}>
+    <HStackContainer
+      style={{...style, justifyContent: justify, alignItems: align}}
+    >
       {Children.map(children, (child: React.ReactElement<any>, index) => (
         <>
           {child}
-          {index !== Children.count(children) - 1 && <div style={gapStyles} />}
+          {index !== Children.count(children) - 1 && (
+            <div style={{width: Theme.space[gap]}} />
+          )}
         </>
       ))}
     </HStackContainer>
+  )
+}
+
+export const VStack = ({
+  children,
+  gap = '$2',
+  style,
+  justify = 'flex-start',
+  align = 'stretch'
+}: StackProps) => {
+  return (
+    <VStackContainer
+      style={{...style, justifyContent: justify, alignItems: align}}
+    >
+      {Children.map(children, (child: React.ReactElement<any>, index) => (
+        <>
+          {child}
+          {index !== Children.count(children) - 1 && (
+            <div style={{height: Theme.space[gap]}} />
+          )}
+        </>
+      ))}
+    </VStackContainer>
   )
 }
