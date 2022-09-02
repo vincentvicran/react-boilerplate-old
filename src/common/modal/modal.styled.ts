@@ -22,6 +22,6 @@ export const ModalContent = styled.div`
   padding: 20px;
   background: #ffffff;
   border-radius: ${Theme.radius.$default};
-  box-shadow: ${Theme.shadows.$z12};
+  box-shadow: ${Theme.shadows.$z6};
   font-family: Arial;
 `

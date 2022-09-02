@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import Theme from 'src/theme'
+
 const ToastContainer = styled.div`
   position: fixed;
   display: flex;
@@ -24,7 +26,7 @@ const MessageContainer = styled.div`
   padding: 9px;
   border: 1px solid #e1e1e1;
   border-radius: 6px;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: ${Theme.shadows.$z4};
   color: #ffffff;
   cursor: pointer;
   width: 100%;

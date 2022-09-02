@@ -3,6 +3,7 @@ import styled, {css} from 'styled-components'
 import {colors} from './constants'
 
 import {StyledButtonProps} from './button.type'
+import Theme from 'src/theme'
 
 const {colorOptions, variantOptions} = colors
 
@@ -11,11 +12,11 @@ const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  padding: 8px 16px;
+  padding: ${Theme.space.$2} ${Theme.space.$4};
   min-width: 115px;
   height: 36px;
   background-color: ${colors.default.backgroundColor};
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: ${Theme.shadows.$z1};
   border: 1px solid ${colors.light.lightBorderColor};
   outline: none;
   border-radius: 6px;

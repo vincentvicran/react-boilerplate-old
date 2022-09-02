@@ -31,7 +31,7 @@ export const Modal = ({
   style,
   isAnimated = true,
   animationConfig = AnimationConfigUtils.POWER4,
-  disableScroll = true
+  disableScroll = false
 }: ModalProps) => {
   const modalRef = React.useRef<HTMLElement>(null)
   const transition = useMountedValue(visible, {

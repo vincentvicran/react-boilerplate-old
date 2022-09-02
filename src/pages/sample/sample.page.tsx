@@ -25,8 +25,6 @@ export const Sample = () => {
         </RippleButton>
       </Modal>
 
-      <div style={{height: 2000}} />
-
       <ToastContainer>
         <Toast {...handler} />
       </ToastContainer>
