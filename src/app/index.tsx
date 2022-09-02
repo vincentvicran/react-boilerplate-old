@@ -1,8 +1,10 @@
 import {useState, PropsWithChildren, useEffect, useCallback} from 'react'
 import {Auth, withNavigation} from 'react-auth-navigation'
-import {authenticateUser} from 'src/pages/login/login.slice'
 
 import {useDispatch, useSelector} from 'src/store'
+import {removeCookie} from 'src/helpers'
+import {Header} from 'src/components/header'
+import {authenticateUser} from 'src/pages/login/login.slice'
 
 import {publicPaths, privatePaths} from './routes.app'
 import {userRoles, UserTypes} from './userRoles.app'
@@ -10,6 +12,7 @@ import {userRoles, UserTypes} from './userRoles.app'
 const App = withNavigation(
   () => (
     <AppContainer>
+      <Header />
       <Auth.Screens />
     </AppContainer>
   ),
@@ -38,10 +41,10 @@ const AppContainer = ({children}: PropsWithChildren) => {
     []
   )
 
-  const logout = useCallback(
-    () => setConfig({isLoggedIn: false, userRole: 'USER'}),
-    []
-  )
+  const logout = useCallback(() => {
+    removeCookie('@token')
+    setConfig({isLoggedIn: false, userRole: 'USER'})
+  }, [])
 
   useEffect(() => {
     dispatch(
