@@ -1,4 +1,4 @@
-import * as React from 'react'
+import {useRef} from 'react'
 import {
   makeAnimatedComponent,
   useMountedValue,
@@ -33,7 +33,7 @@ export const Modal = ({
   animationConfig = AnimationConfigUtils.POWER4,
   disableScroll = false
 }: ModalProps) => {
-  const modalRef = React.useRef<HTMLElement>(null)
+  const modalRef = useRef<HTMLElement>(null)
   const transition = useMountedValue(visible, {
     from: 0,
     enter: 1,

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import {useState, useCallback, useRef} from 'react'
 import {
   useOutsideClick,
   AnimatedBlock,
@@ -46,9 +46,9 @@ export const Dropdown = ({
   triggerToggle = false
 }: DropdownProps) => {
   const containerRef: React.RefObject<HTMLDivElement> =
-    React.useRef<HTMLDivElement>(null)
+    useRef<HTMLDivElement>(null)
 
-  const [dropdownActive, setDropdownActive] = React.useState<boolean>(active)
+  const [dropdownActive, setDropdownActive] = useState<boolean>(active)
 
   const dropdownAnimation = useMountedValue(dropdownActive, {
     from: 0,
@@ -57,7 +57,7 @@ export const Dropdown = ({
     config: isAnimated ? animationConfig : {immediate: true}
   })
 
-  const openDropdown: () => void = React.useCallback(() => {
+  const openDropdown: () => void = useCallback(() => {
     if (!dropdownActive) {
       setDropdownActive(true)
     }
@@ -67,7 +67,7 @@ export const Dropdown = ({
     setDropdownActive(false)
   }
 
-  const toggleDropdown: () => void = React.useCallback(() => {
+  const toggleDropdown: () => void = useCallback(() => {
     if (dropdownActive) {
       closeDropdown()
     } else {
