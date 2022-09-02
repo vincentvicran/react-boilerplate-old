@@ -118,7 +118,7 @@ const ToastItem = ({
     enter: 1,
     exit: 0,
     config: {
-      ...AnimationConfigUtils.POWER2
+      ...AnimationConfigUtils.POWER4
     }
   })
 
