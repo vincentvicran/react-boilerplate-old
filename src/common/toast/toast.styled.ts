@@ -25,7 +25,7 @@ const MessageContainer = styled.div`
   background: white;
   padding: 9px;
   border: 1px solid #e1e1e1;
-  border-radius: 6px;
+  border-radius: ${Theme.radius.$default};
   box-shadow: ${Theme.shadows.$z4};
   color: #ffffff;
   cursor: pointer;
@@ -79,10 +79,10 @@ const CloseIconContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 4px;
-  font-size: 12px;
+  font-size: ${Theme.fontSizes.$3};
   margin-left: auto;
   border-radius: 50%;
-  color: #a1a1a1;
+  color: ${Theme.colors.$gray600};
   transition: all 0.3s ease-in-out;
   &:hover {
     color: #717171;

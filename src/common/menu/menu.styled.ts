@@ -30,12 +30,13 @@ export const StyledMenuItem = styled.button<Pick<MenuItemProps, 'danger'>>`
   cursor: pointer;
   color: ${(props) =>
     props.danger ? Theme.colors.$error : Theme.colors.$black};
-  transition: background-color 0.3s;
+  transition: background-color 0.1s;
+
   &:hover {
     background-color: ${Theme.colors.$backgroundSecondary};
   }
   &:active {
-    background-color: ${Theme.colors.$backgroundSecondary};
+    background-color: ${Theme.colors.$gray200};
   }
   &:focus {
     outline: ${Theme.colors.$borderInput};
@@ -46,6 +47,6 @@ export const StyledMenuItem = styled.button<Pick<MenuItemProps, 'danger'>>`
 `
 export const StyledMenuSeparator = styled.div`
   width: 100%;
-  border-bottom: 1px solid ${Theme.colors.$borderSecondary};
+  border-bottom: 1px solid ${Theme.colors.$borderPrimary};
   margin: 5px 0px;
 `
