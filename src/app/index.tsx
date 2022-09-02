@@ -1,4 +1,4 @@
-import {useState, PropsWithChildren, useEffect} from 'react'
+import {useState, PropsWithChildren, useEffect, useCallback} from 'react'
 import {Auth, withNavigation} from 'react-auth-navigation'
 import {authenticateUser} from 'src/pages/login/login.slice'
 
@@ -30,27 +30,36 @@ const AppContainer = ({children}: PropsWithChildren) => {
     isLoggedIn: false,
     userRole: 'USER'
   })
-  const {authLoading, success} = useSelector((state) => state.login)
+  const {authenticating} = useSelector((state) => state.login)
   const dispatch = useDispatch()
 
-  const login = () => setConfig({isLoggedIn: true, userRole: 'ADMIN'})
-  // const logout = () => () => setConfig({isLoggedIn: false, userRole: 'USER'})
+  const login = useCallback(
+    () => setConfig({isLoggedIn: true, userRole: 'ADMIN'}),
+    []
+  )
+
+  const logout = useCallback(
+    () => setConfig({isLoggedIn: false, userRole: 'USER'}),
+    []
+  )
 
   useEffect(() => {
-    dispatch(authenticateUser())
+    dispatch(
+      authenticateUser({
+        onSuccess: () => login()
+      })
+    )
   }, [])
 
-  useEffect(() => {
-    if (!authLoading && success) {
-      login()
-    }
-  }, [success, authLoading])
-
-  if (authLoading) {
+  if (authenticating) {
     return <div>Authenicating... Please wait...</div>
   }
 
-  return <Auth config={config}>{children}</Auth>
+  return (
+    <Auth config={config} state={{login, logout}}>
+      {children}
+    </Auth>
+  )
 }
 
 export {App}

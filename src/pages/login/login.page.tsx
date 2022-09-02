@@ -1,11 +1,12 @@
 import {useFormInput} from 'use-form-input'
 
-import {useDispatch} from 'src/store'
+import {useDispatch, useSelector} from 'src/store'
 
 import {login} from './login.slice'
 
 export const Login = () => {
   const dispatch = useDispatch()
+  const {loading} = useSelector((state) => state.login)
 
   const [data, {onChange, onSubmit}] = useFormInput(
     {
@@ -38,7 +39,11 @@ export const Login = () => {
           value={data.password}
           onChange={onChange}
         />
-        <button type="submit">Login</button>
+        {loading ? (
+          <span>Loading...</span>
+        ) : (
+          <button type="submit">Login</button>
+        )}
       </form>
     </div>
   )
