@@ -9,7 +9,7 @@ import {
 
 import {useDisableScroll} from 'src/hooks'
 
-import {ModalContainer, ModalContent} from './modal.styled'
+import {ModalContainer, ModalContent} from './modal.style'
 
 const AnimatedModalContainer = makeAnimatedComponent(ModalContainer)
 const AnimatedModalContent = makeAnimatedComponent(ModalContent)

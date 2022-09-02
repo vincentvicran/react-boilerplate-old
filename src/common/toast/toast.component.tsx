@@ -19,7 +19,7 @@ import {
   ToastIndicator,
   MessageHeader,
   MessageContent
-} from './toast.styled'
+} from './toast.style'
 import {toastData} from './constants'
 
 const MasterContainerAnimated = makeAnimatedComponent(MasterContainer)

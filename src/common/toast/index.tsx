@@ -1,2 +1,2 @@
 export * from './toast.component'
-export {ToastContainer} from './toast.styled'
+export {ToastContainer} from './toast.style'

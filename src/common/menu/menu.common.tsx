@@ -3,7 +3,7 @@ import {
   MenuItemProps,
   StyledMenuItem,
   StyledMenuSeparator
-} from './menu.styled'
+} from './menu.style'
 
 interface MenuProps {
   children: React.ReactNode

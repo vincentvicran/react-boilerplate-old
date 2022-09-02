@@ -1,5 +1,5 @@
 import {LoaderProps} from '../../button.type'
-import {Bounce1, Bounce2, Bounce3, Loader} from './buttonLoader.styled'
+import {Bounce1, Bounce2, Bounce3, Loader} from './buttonLoader.style'
 
 export const ButtonLoader = ({variant, color, disabled}: LoaderProps) => {
   return (

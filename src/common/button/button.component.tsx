@@ -11,7 +11,7 @@ import {
   ButtonText,
   RippleContainer,
   RippleItem
-} from './button.styled'
+} from './button.style'
 
 import {ButtonProps, RippleProps} from './button.type'
 import {ButtonLoader} from './components'
