@@ -4,7 +4,6 @@ import {
   makeAnimatedComponent,
   AnimationConfigUtils,
   useMeasure,
-  interpolate,
   useAnimatedValue
 } from 'react-ui-animate'
 import {MdClose, MdInfo} from 'react-icons/md'
