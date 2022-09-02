@@ -6,6 +6,7 @@ import {Modal} from 'src/common/modal'
 import {Dropdown} from 'src/common/dropdown'
 import {Menu} from 'src/common/menu'
 import {HStack, VStack} from 'src/common/stack'
+import {Tabs} from 'src/common/tabs'
 
 export const Sample = () => {
   const [open, setOpen] = useState(false)
@@ -56,6 +57,18 @@ export const Sample = () => {
         <div style={{background: 'blue', color: 'white'}}>VStack Item 2</div>
         <div style={{background: 'green', color: 'white'}}>VStack Item 3</div>
       </VStack>
+
+      <Tabs onTabChange={(tabId) => console.log('TAB CHANGED', tabId)}>
+        <Tabs.Pane id="one" title="Tab One">
+          Tab One Content
+        </Tabs.Pane>
+        <Tabs.Pane id="two" title="Tab Two">
+          Tab Two Content
+        </Tabs.Pane>
+        <Tabs.Pane id="three" title="Tab Three">
+          Tab Three Content
+        </Tabs.Pane>
+      </Tabs>
 
       <Modal visible={open} onOutsideClick={() => setOpen(false)}>
         <h3>CONTENT GOES HERE</h3>
