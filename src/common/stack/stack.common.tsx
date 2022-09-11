@@ -13,7 +13,7 @@ interface StackProps {
 
 export const HStack = ({
   children,
-  gap = '$2',
+  gap = '$0',
   style,
   justify = 'flex-start',
   align = 'stretch'
@@ -36,7 +36,7 @@ export const HStack = ({
 
 export const VStack = ({
   children,
-  gap = '$2',
+  gap = '$0',
   style,
   justify = 'flex-start',
   align = 'stretch'
