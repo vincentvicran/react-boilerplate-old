@@ -5,10 +5,21 @@ import React, {
   useState,
   ReactElement,
   useEffect,
-  useCallback
+  useCallback,
+  useRef
 } from 'react'
+import {
+  AnimatedBlock,
+  AnimationConfigUtils,
+  useAnimatedValue
+} from 'react-ui-animate'
 
-import {TabsStyled, TabsHeaderStyled, TabsPaneStyled} from './tabs.style'
+import {
+  TabsStyled,
+  TabsHeaderStyled,
+  TabsPaneStyled,
+  TabHeaderItemStyled
+} from './tabs.style'
 
 interface TabsProps {
   children: any
@@ -31,6 +42,13 @@ export const Tabs = ({children, onTabChange}: TabsProps) => {
   )
 
   const [activeId, setActiveId] = useState(tabElements[0].id)
+  const tabsMeasurements = useRef(Array(tabElements.length).fill(null))
+  const tabWidth = useAnimatedValue(0, {
+    ...AnimationConfigUtils.POWER4
+  })
+  const tabLeft = useAnimatedValue(0, {
+    ...AnimationConfigUtils.POWER4
+  })
 
   const activeTab = useMemo(
     () => tabElements.find((el) => el.id === activeId),
@@ -46,6 +64,10 @@ export const Tabs = ({children, onTabChange}: TabsProps) => {
 
   useEffect(() => {
     onTabChange?.(activeId)
+
+    const activeIndex = tabElements.findIndex((e) => e.id === activeId)
+    tabWidth.value = tabsMeasurements.current[activeIndex].offsetWidth
+    tabLeft.value = tabsMeasurements.current[activeIndex].offsetLeft
   }, [activeId])
 
   if (!activeTab) {
@@ -55,23 +77,35 @@ export const Tabs = ({children, onTabChange}: TabsProps) => {
   return (
     <TabsStyled>
       <TabsHeaderStyled>
-        {tabElements.map((element) =>
-          typeof element.title === 'string' ? (
-            <span
-              key={element.id}
-              onClick={(e) => handleTabChange(e, element.id)}
-            >
-              {element.title}
-            </span>
-          ) : (
-            <span
-              key={element.id}
-              onClick={(e) => handleTabChange(e, element.id)}
-            >
-              {element.title}
-            </span>
-          )
-        )}
+        {tabElements.map((element, index) => (
+          <span
+            ref={(r) => (tabsMeasurements.current[index] = r)}
+            key={element.id}
+          >
+            {typeof element.title === 'string' ? (
+              <TabHeaderItemStyled
+                onClick={(e) => handleTabChange(e, element.id)}
+              >
+                {element.title}
+              </TabHeaderItemStyled>
+            ) : (
+              <span onClick={(e) => handleTabChange(e, element.id)}>
+                {element.title}
+              </span>
+            )}
+          </span>
+        ))}
+
+        <AnimatedBlock
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            backgroundColor: 'red',
+            height: 4,
+            width: tabWidth.value,
+            left: tabLeft.value
+          }}
+        />
       </TabsHeaderStyled>
 
       {activeTab.element}

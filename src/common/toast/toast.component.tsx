@@ -4,7 +4,8 @@ import {
   makeAnimatedComponent,
   AnimationConfigUtils,
   useMeasure,
-  useAnimatedValue
+  useAnimatedValue,
+  interpolate
 } from 'react-ui-animate'
 import {MdClose, MdInfo} from 'react-icons/md'
 import {RiCheckboxCircleFill, RiErrorWarningFill} from 'react-icons/ri'
@@ -116,7 +117,7 @@ const ToastItem = ({
   const mv = useMountedValue(open, {
     from: 0,
     enter: 1,
-    exit: 0,
+    exit: 2,
     config: {
       ...AnimationConfigUtils.POWER4
     }
@@ -138,7 +139,8 @@ const ToastItem = ({
         <MasterContainerAnimated
           style={{
             height: heightAnimation.value,
-            opacity: animation.value
+            opacity: interpolate(animation.value, [0, 1, 2], [0, 1, 0]),
+            scale: interpolate(animation.value, [0, 1, 2], [1, 1, 0.95])
           }}
         >
           <MessageContainerAnimated

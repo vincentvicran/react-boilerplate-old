@@ -34,7 +34,10 @@ export const Sample = () => {
           </Menu.Container>
         </Dropdown>
 
-        <Dropdown trigger={() => <Button>Open Custom Dropdown</Button>}>
+        <Dropdown
+          triggerToggle
+          trigger={() => <Button>Open Custom Dropdown</Button>}
+        >
           <div
             style={{
               width: 240,
@@ -62,7 +65,10 @@ export const Sample = () => {
         <Tabs.Pane id="one" title="Tab One">
           Tab One Content
         </Tabs.Pane>
-        <Tabs.Pane id="two" title="Tab Two">
+        <Tabs.Pane
+          id="two"
+          title={<Button color="primary">SAMPLE BUTTON TEST</Button>}
+        >
           Tab Two Content
         </Tabs.Pane>
         <Tabs.Pane id="three" title="Tab Three">
