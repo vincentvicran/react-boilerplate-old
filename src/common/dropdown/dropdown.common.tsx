@@ -20,7 +20,7 @@ type placementType =
   | 'topright'
   | 'topmiddle'
 
-interface DropdownProps {
+export interface DropdownProps {
   children?: React.ReactNode
   trigger: (elementArg: triggerElementArgType) => React.ReactNode
   active?: boolean

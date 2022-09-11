@@ -4,9 +4,9 @@ import {Button} from 'src/common/button'
 import {Toast, useToast} from 'src/common/toast'
 import {Modal} from 'src/common/modal'
 import {Dropdown} from 'src/common/dropdown'
-import {Menu} from 'src/common/menu'
+import {Menu, MenuItem, MenuSeparator} from 'src/common/menu'
 import {HStack, VStack} from 'src/common/stack'
-import {Tabs} from 'src/common/tabs'
+import {Tabs, TabsPane} from 'src/common/tabs'
 
 export const Sample = () => {
   const [open, setOpen] = useState(false)
@@ -23,16 +23,14 @@ export const Sample = () => {
           Open Modal
         </Button>
 
-        <Dropdown trigger={() => <Button color="secondary">Open Menu</Button>}>
-          <Menu.Container>
-            <Menu.Item onClick={() => false}>First Element</Menu.Item>
-            <Menu.Item onClick={() => false}>Second Element</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item onClick={() => false} danger>
-              Third Element
-            </Menu.Item>
-          </Menu.Container>
-        </Dropdown>
+        <Menu trigger={() => <Button color="secondary">Open Menu</Button>}>
+          <MenuItem onClick={() => false}>First Element</MenuItem>
+          <MenuItem onClick={() => false}>Second Element</MenuItem>
+          <MenuSeparator />
+          <MenuItem onClick={() => false} danger>
+            Third Element
+          </MenuItem>
+        </Menu>
 
         <Dropdown
           triggerToggle
@@ -61,19 +59,22 @@ export const Sample = () => {
         <div style={{background: 'green', color: 'white'}}>VStack Item 3</div>
       </VStack>
 
-      <Tabs onTabChange={(tabId) => console.log('TAB CHANGED', tabId)}>
-        <Tabs.Pane id="one" title="Tab One">
+      <Tabs
+        selectedId="three"
+        onTabChange={(tabId) => console.log('TAB CHANGED', tabId)}
+      >
+        <TabsPane id="one" title="Tab One">
           Tab One Content
-        </Tabs.Pane>
-        <Tabs.Pane
+        </TabsPane>
+        <TabsPane
           id="two"
           title={<Button color="primary">SAMPLE BUTTON TEST</Button>}
         >
           Tab Two Content
-        </Tabs.Pane>
-        <Tabs.Pane id="three" title="Tab Three">
+        </TabsPane>
+        <TabsPane id="three" title="Tab Three">
           Tab Three Content
-        </Tabs.Pane>
+        </TabsPane>
       </Tabs>
 
       <Modal visible={open} onOutsideClick={() => setOpen(false)}>

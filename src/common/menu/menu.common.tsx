@@ -1,3 +1,5 @@
+import {Dropdown, DropdownProps} from 'src/common/dropdown'
+
 import {
   StyledMenuContainer,
   MenuItemProps,
@@ -5,22 +7,23 @@ import {
   StyledMenuSeparator
 } from './menu.style'
 
-interface MenuProps {
-  children: React.ReactNode
-  style?: React.CSSProperties
+interface MenuProps extends DropdownProps {
   className?: string
+  containerStyle?: React.CSSProperties
 }
 
-const MenuContainer = (props: MenuProps) => {
-  const {children, style, className} = props
+export const Menu = (props: MenuProps) => {
+  const {children, containerStyle, style, className, ...rest} = props
   return (
-    <StyledMenuContainer {...{style, className}}>
-      {children}
-    </StyledMenuContainer>
+    <Dropdown {...rest} style={containerStyle}>
+      <StyledMenuContainer {...{style, className}}>
+        {children}
+      </StyledMenuContainer>
+    </Dropdown>
   )
 }
 
-const MenuItem = (props: MenuItemProps) => {
+export const MenuItem = (props: MenuItemProps) => {
   const {children, danger = false, onClick, style, className} = props
   return (
     <StyledMenuItem {...{danger, onClick, style, className}}>
@@ -29,12 +32,6 @@ const MenuItem = (props: MenuItemProps) => {
   )
 }
 
-const MenuSeparator = () => {
+export const MenuSeparator = () => {
   return <StyledMenuSeparator />
-}
-
-export const Menu = {
-  Container: MenuContainer,
-  Item: MenuItem,
-  Separator: MenuSeparator
 }
