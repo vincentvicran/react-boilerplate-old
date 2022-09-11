@@ -6,7 +6,8 @@ import React, {
   ReactElement,
   useEffect,
   useCallback,
-  useRef
+  useRef,
+  useImperativeHandle
 } from 'react'
 import {
   AnimatedBlock,
@@ -21,14 +22,18 @@ import {
   TabHeaderItemStyled
 } from './tabs.style'
 
-interface TabsProps {
+export interface TabsProps {
   children: any
   selectedId?: string
   onTabChange?: (tabId: string) => void
 }
 
-export const Tabs = React.forwardRef<any, TabsProps>(
-  ({children, selectedId, onTabChange}: TabsProps) => {
+export interface TabsRef {
+  setActiveId: (tabId: string) => void
+}
+
+export const Tabs = React.forwardRef<TabsRef, TabsProps>(
+  ({children, selectedId, onTabChange}: TabsProps, ref) => {
     const tabElements: Array<{
       id: string
       title: ReactNode
@@ -71,6 +76,9 @@ export const Tabs = React.forwardRef<any, TabsProps>(
       tabWidth.value = tabsMeasurements.current[activeIndex].offsetWidth
       tabLeft.value = tabsMeasurements.current[activeIndex].offsetLeft
     }, [activeId])
+
+    const tabsRef = useRef({setActiveId})
+    useImperativeHandle(ref, () => tabsRef.current)
 
     if (!activeTab) {
       return null
@@ -116,7 +124,7 @@ export const Tabs = React.forwardRef<any, TabsProps>(
   }
 )
 
-interface TabsPaneProps {
+export interface TabsPaneProps {
   title: ReactNode
   children: ReactNode
   id: string
