@@ -8,7 +8,7 @@ export const TabsHeaderStyled = styled.div`
   position: relative;
 `
 export const TabHeaderItemStyled = styled.div`
-  padding: ${Theme.space.$3};
+  padding: ${Theme.space.$2};
   cursor: pointer;
 `
 export const TabsPaneStyled = styled.div``

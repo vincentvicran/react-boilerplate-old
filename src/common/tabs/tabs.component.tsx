@@ -26,6 +26,7 @@ export interface TabsProps {
   children: any
   selectedId?: string
   onTabChange?: (tabId: string) => void
+  style?: React.CSSProperties
 }
 
 export interface TabsRef {
@@ -33,7 +34,7 @@ export interface TabsRef {
 }
 
 export const Tabs = React.forwardRef<TabsRef, TabsProps>(
-  ({children, selectedId, onTabChange}: TabsProps, ref) => {
+  ({children, selectedId, onTabChange, style}: TabsProps, ref) => {
     const tabElements: Array<{
       id: string
       title: ReactNode
@@ -85,7 +86,7 @@ export const Tabs = React.forwardRef<TabsRef, TabsProps>(
     }
 
     return (
-      <TabsStyled>
+      <TabsStyled {...{style}}>
         <TabsHeaderStyled>
           {tabElements.map((element, index) => (
             <span
@@ -113,7 +114,9 @@ export const Tabs = React.forwardRef<TabsRef, TabsProps>(
               backgroundColor: 'red',
               height: 4,
               width: tabWidth.value,
-              left: tabLeft.value
+              left: tabLeft.value,
+              zIndex: 10,
+              pointerEvents: 'none'
             }}
           />
         </TabsHeaderStyled>
@@ -128,8 +131,10 @@ export interface TabsPaneProps {
   title: ReactNode
   children: ReactNode
   id: string
+  style?: React.CSSProperties
+  className?: string
 }
 
-export const TabsPane = ({children}: TabsPaneProps) => {
-  return <TabsPaneStyled>{children}</TabsPaneStyled>
+export const TabsPane = ({children, style, className}: TabsPaneProps) => {
+  return <TabsPaneStyled {...{style, className}}>{children}</TabsPaneStyled>
 }

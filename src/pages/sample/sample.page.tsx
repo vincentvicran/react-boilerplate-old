@@ -15,7 +15,7 @@ export const Sample = () => {
 
   return (
     <VStack style={{padding: 8}}>
-      <HStack>
+      <VStack gap="$2">
         <Button color="success" onClick={() => toast.success('Some message')}>
           Open Toast
         </Button>
@@ -46,41 +46,37 @@ export const Sample = () => {
             }}
           />
         </Dropdown>
-      </HStack>
 
-      <HStack style={{backgroundColor: 'yellow'}}>
-        <div style={{background: 'red', color: 'white'}}>HStack Item 1</div>
-        <div style={{background: 'blue', color: 'white'}}>HStack Item 2</div>
-        <div style={{background: 'green', color: 'white'}}>HStack Item 3</div>
-      </HStack>
+        <HStack style={{backgroundColor: 'yellow'}}>
+          <div style={{background: 'red', color: 'white'}}>HStack Item 1</div>
+          <div style={{background: 'blue', color: 'white'}}>HStack Item 2</div>
+          <div style={{background: 'green', color: 'white'}}>HStack Item 3</div>
+        </HStack>
 
-      <VStack style={{backgroundColor: 'orange'}}>
-        <div style={{background: 'red', color: 'white'}}>VStack Item 1</div>
-        <div style={{background: 'blue', color: 'white'}}>VStack Item 2</div>
-        <div style={{background: 'green', color: 'white'}}>VStack Item 3</div>
+        <VStack style={{backgroundColor: 'orange'}}>
+          <div style={{background: 'red', color: 'white'}}>VStack Item 1</div>
+          <div style={{background: 'blue', color: 'white'}}>VStack Item 2</div>
+          <div style={{background: 'green', color: 'white'}}>VStack Item 3</div>
+        </VStack>
+
+        <Tabs>
+          <TabsPane id="one" title="Tab One">
+            Tab One Content
+            <Button onClick={() => tabRef.current?.setActiveId('two')}>
+              GO TO NEXT ID: two
+            </Button>
+          </TabsPane>
+          <TabsPane
+            id="two"
+            title={<Button color="primary">SAMPLE BUTTON TEST</Button>}
+          >
+            Tab Two Content
+          </TabsPane>
+          <TabsPane id="three" title="Tab Three">
+            Tab Three Content
+          </TabsPane>
+        </Tabs>
       </VStack>
-
-      <Tabs
-        ref={tabRef}
-        selectedId="three"
-        onTabChange={(tabId) => console.log('TAB CHANGED', tabId)}
-      >
-        <TabsPane id="one" title="Tab One">
-          Tab One Content
-          <Button onClick={() => tabRef.current?.setActiveId('two')}>
-            GO TO NEXT ID: two
-          </Button>
-        </TabsPane>
-        <TabsPane
-          id="two"
-          title={<Button color="primary">SAMPLE BUTTON TEST</Button>}
-        >
-          Tab Two Content
-        </TabsPane>
-        <TabsPane id="three" title="Tab Three">
-          Tab Three Content
-        </TabsPane>
-      </Tabs>
 
       <Modal visible={open} onOutsideClick={() => setOpen(false)}>
         <h3>CONTENT GOES HERE</h3>
