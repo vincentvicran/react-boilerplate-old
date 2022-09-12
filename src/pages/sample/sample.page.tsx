@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react'
+import {useState} from 'react'
 
 import {Button} from 'src/common/button'
 import {Toast, useToast} from 'src/common/toast'
@@ -6,10 +6,9 @@ import {Modal} from 'src/common/modal'
 import {Dropdown} from 'src/common/dropdown'
 import {Menu, MenuItem, MenuSeparator} from 'src/common/menu'
 import {HStack, VStack} from 'src/common/stack'
-import {Tabs, TabsPane, TabsRef} from 'src/common/tabs'
+import {Tabs, TabsPane} from 'src/common/tabs'
 
 export const Sample = () => {
-  const tabRef = useRef<TabsRef>(null)
   const [open, setOpen] = useState(false)
   const {handler, toast} = useToast()
 
@@ -62,9 +61,6 @@ export const Sample = () => {
         <Tabs>
           <TabsPane id="one" title="Tab One">
             Tab One Content
-            <Button onClick={() => tabRef.current?.setActiveId('two')}>
-              GO TO NEXT ID: two
-            </Button>
           </TabsPane>
           <TabsPane
             id="two"
