@@ -12,3 +12,12 @@ export const TabHeaderItemStyled = styled.div`
   cursor: pointer;
 `
 export const TabsPaneStyled = styled.div``
+
+export const Indicator = styled.div`
+  position: absolute;
+  bottom: 0;
+  background-color: ${Theme.colors.$primary};
+  height: 4px;
+  z-index: 10;
+  pointer-events: none;
+`

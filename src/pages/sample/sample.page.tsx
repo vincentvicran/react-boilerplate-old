@@ -15,14 +15,17 @@ export const Sample = () => {
 
   return (
     <>
+      <h2>Toast</h2>
       <Button color="success" onClick={() => toast.success('Some message')}>
         Open Toast
       </Button>
 
+      <h2>Modal</h2>
       <Button color="info" onClick={() => setOpen(true)}>
         Open Modal
       </Button>
 
+      <h2>Menu</h2>
       <Menu trigger={() => <Button color="secondary">Open Menu</Button>}>
         <MenuItem onClick={() => false}>First Element</MenuItem>
         <MenuItem onClick={() => false}>Second Element</MenuItem>
@@ -32,6 +35,7 @@ export const Sample = () => {
         </MenuItem>
       </Menu>
 
+      <h2>Dropdown</h2>
       <Dropdown
         triggerToggle
         trigger={() => <Button>Open Custom Dropdown</Button>}
@@ -46,18 +50,21 @@ export const Sample = () => {
         />
       </Dropdown>
 
+      <h2>HStack</h2>
       <HStack style={{backgroundColor: 'yellow'}}>
         <div style={{background: 'red', color: 'white'}}>HStack Item 1</div>
         <div style={{background: 'blue', color: 'white'}}>HStack Item 2</div>
         <div style={{background: 'green', color: 'white'}}>HStack Item 3</div>
       </HStack>
 
+      <h2>VStack</h2>
       <VStack style={{backgroundColor: 'orange'}}>
         <div style={{background: 'red', color: 'white'}}>VStack Item 1</div>
         <div style={{background: 'blue', color: 'white'}}>VStack Item 2</div>
         <div style={{background: 'green', color: 'white'}}>VStack Item 3</div>
       </VStack>
 
+      <h2>Tabs</h2>
       <Tabs>
         <TabsPane id="one" title="Tab One">
           Tab One Content
@@ -73,24 +80,27 @@ export const Sample = () => {
         </TabsPane>
       </Tabs>
 
-      <Tooltip title="tooltip title" placement="bottomleft">
-        <Button>TOOLTIP BUTTON</Button>
-      </Tooltip>
-      <Tooltip title="tooltip title" placement="bottommiddle">
-        <Button>TOOLTIP BUTTON</Button>
-      </Tooltip>
-      <Tooltip title="tooltip title" placement="bottomright">
-        <Button>TOOLTIP BUTTON</Button>
-      </Tooltip>
-      <Tooltip title="tooltip title" placement="topleft">
-        <Button>TOOLTIP BUTTON</Button>
-      </Tooltip>
-      <Tooltip title="tooltip title" placement="topmiddle">
-        <Button>TOOLTIP BUTTON</Button>
-      </Tooltip>
-      <Tooltip title="tooltip title" placement="topright">
-        <Button>TOOLTIP BUTTON</Button>
-      </Tooltip>
+      <h2>Tooltip</h2>
+      <HStack gap="$2">
+        <Tooltip title="tooltip title" placement="bottomleft">
+          <Button color="primary">BOTTOM LEFT</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="bottommiddle">
+          <Button color="primary">BOTTOM MIDDLE</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="bottomright">
+          <Button color="primary">BOTTOM RIGHT</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="topleft">
+          <Button color="primary">TOP LEFT</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="topmiddle">
+          <Button color="primary">TOP MIDDLE</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="topright">
+          <Button color="primary">TOP RIGHT</Button>
+        </Tooltip>
+      </HStack>
 
       <Modal visible={open} onOutsideClick={() => setOpen(false)}>
         <h3>CONTENT GOES HERE</h3>

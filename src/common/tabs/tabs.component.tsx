@@ -10,8 +10,8 @@ import React, {
   useImperativeHandle
 } from 'react'
 import {
-  AnimatedBlock,
   AnimationConfigUtils,
+  makeAnimatedComponent,
   useAnimatedValue
 } from 'react-ui-animate'
 
@@ -19,7 +19,8 @@ import {
   TabsStyled,
   TabsHeaderStyled,
   TabsPaneStyled,
-  TabHeaderItemStyled
+  TabHeaderItemStyled,
+  Indicator
 } from './tabs.style'
 
 export interface TabsProps {
@@ -27,14 +28,19 @@ export interface TabsProps {
   selectedId?: string
   onTabChange?: (tabId: string) => void
   style?: React.CSSProperties
+  indicatorStyle?: React.CSSProperties
 }
 
 export interface TabsRef {
   setActiveId: (tabId: string) => void
 }
 
+const AnimatedIndicator = makeAnimatedComponent(Indicator)
 export const Tabs = React.forwardRef<TabsRef, TabsProps>(
-  ({children, selectedId, onTabChange, style}: TabsProps, ref) => {
+  (
+    {children, selectedId, onTabChange, style, indicatorStyle}: TabsProps,
+    ref
+  ) => {
     const tabElements: Array<{
       id: string
       title: ReactNode
@@ -107,16 +113,11 @@ export const Tabs = React.forwardRef<TabsRef, TabsProps>(
             </span>
           ))}
 
-          <AnimatedBlock
+          <AnimatedIndicator
             style={{
-              position: 'absolute',
-              bottom: 0,
-              backgroundColor: 'red',
-              height: 4,
+              ...indicatorStyle,
               width: tabWidth.value,
-              left: tabLeft.value,
-              zIndex: 10,
-              pointerEvents: 'none'
+              left: tabLeft.value
             }}
           />
         </TabsHeaderStyled>
