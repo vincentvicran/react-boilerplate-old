@@ -73,7 +73,22 @@ export const Sample = () => {
         </TabsPane>
       </Tabs>
 
-      <Tooltip title="tooltip title">
+      <Tooltip title="tooltip title" placement="bottomleft">
+        <Button>TOOLTIP BUTTON</Button>
+      </Tooltip>
+      <Tooltip title="tooltip title" placement="bottommiddle">
+        <Button>TOOLTIP BUTTON</Button>
+      </Tooltip>
+      <Tooltip title="tooltip title" placement="bottomright">
+        <Button>TOOLTIP BUTTON</Button>
+      </Tooltip>
+      <Tooltip title="tooltip title" placement="topleft">
+        <Button>TOOLTIP BUTTON</Button>
+      </Tooltip>
+      <Tooltip title="tooltip title" placement="topmiddle">
+        <Button>TOOLTIP BUTTON</Button>
+      </Tooltip>
+      <Tooltip title="tooltip title" placement="topright">
         <Button>TOOLTIP BUTTON</Button>
       </Tooltip>
 

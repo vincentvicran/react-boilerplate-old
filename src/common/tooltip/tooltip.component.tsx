@@ -25,13 +25,13 @@ const getPlacement = (placement: Placement): React.CSSProperties => {
     case 'bottomleft':
       return {left: 0, top: '100%', transformOrigin: '0% 0%'}
     case 'bottommiddle':
-      return {left: '50%', top: '100%', transformOrigin: '0% 0%'}
+      return {left: '50%', top: '100%', transformOrigin: '50% 0%'}
     case 'bottomright':
       return {right: 0, top: '100%', transformOrigin: '100% 0%'}
     case 'topleft':
       return {left: 0, bottom: '100%', transformOrigin: '0% 100%'}
     case 'topmiddle':
-      return {left: '50%', bottom: '100%', transformOrigin: '0% 100%'}
+      return {left: '50%', bottom: '100%', transformOrigin: '50% 100%'}
     case 'topright':
       return {right: 0, bottom: '100%', transformOrigin: '100% 100%'}
   }
@@ -46,7 +46,7 @@ const AnimatedTooltipContent = makeAnimatedComponent(TooltipContent)
 const AnimatedTooltipContentText = makeAnimatedComponent(TooltipContentText)
 export const Tooltip = ({
   title,
-  placement = 'bottomleft',
+  placement = 'bottommiddle',
   children
 }: TooltipProps) => {
   const [visible, setVisible] = useState(false)
@@ -79,6 +79,7 @@ export const Tooltip = ({
               style={{
                 opacity: a.value,
                 scale: interpolate(a.value, [0, 1], [0.9, 1]),
+                translateX: placement.includes('middle') ? '-50%' : '0%',
                 ...getPlacement(placement)
               }}
             >

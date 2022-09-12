@@ -20,4 +20,5 @@ export const TooltipContentText = styled.div`
   font-size: ${Theme.fontSizes.$2};
   font-weight: ${Theme.fontWeights.$bold};
   border-radius: ${Theme.radius.$default};
+  white-space: nowrap;
 `
