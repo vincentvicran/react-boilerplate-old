@@ -1,9 +1,9 @@
 import styled, {css} from 'styled-components'
 
-import {colors} from './constants'
-
-import {StyledButtonProps} from './button.type'
 import Theme from 'src/theme'
+
+import {colors} from './constants'
+import {StyledButtonProps} from './button.type'
 
 const {colorOptions, variantOptions} = colors
 
@@ -152,7 +152,7 @@ const IconStyledButton = styled.button<StyledButtonProps>`
         `}
 `
 
-const DisabledIconStyledButton = styled(IconStyledButton)<StyledButtonProps>`
+const DisabledIconStyledButton = styled(IconStyledButton)`
   padding: 0px;
   ${({variant}) =>
     variant &&

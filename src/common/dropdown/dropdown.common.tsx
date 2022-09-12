@@ -12,7 +12,7 @@ type triggerElementArgType = {
   active: boolean
 }
 
-type placementType =
+type Placement =
   | 'bottomleft'
   | 'bottomright'
   | 'bottommiddle'
@@ -20,6 +20,24 @@ type placementType =
   | 'topright'
   | 'topmiddle'
 
+const getPlacement: (pm: Placement) => React.CSSProperties = (
+  placement: Placement
+) => {
+  switch (placement) {
+    case 'bottomleft':
+      return {left: 0, top: '100%', transformOrigin: '0% 0%'}
+    case 'bottommiddle':
+      return {left: '50%', top: '100%', transformOrigin: '0% 0%'}
+    case 'bottomright':
+      return {right: 0, top: '100%', transformOrigin: '100% 0%'}
+    case 'topleft':
+      return {left: 0, bottom: '100%', transformOrigin: '0% 100%'}
+    case 'topmiddle':
+      return {left: '50%', bottom: '100%', transformOrigin: '0% 100%'}
+    case 'topright':
+      return {right: 0, bottom: '100%', transformOrigin: '100% 100%'}
+  }
+}
 export interface DropdownProps {
   children?: React.ReactNode
   trigger: (elementArg: triggerElementArgType) => React.ReactNode
@@ -27,7 +45,7 @@ export interface DropdownProps {
   isAnimated?: boolean
   animationConfig?: UseAnimatedValueConfig
   style?: Omit<React.CSSProperties, 'transform' | 'position' | 'opacity'>
-  placement?: placementType
+  placement?: Placement
   outDismiss?: boolean
   inDismiss?: boolean
   triggerToggle?: boolean
@@ -86,50 +104,11 @@ export const Dropdown = ({
     display: 'inline-block'
   }
 
-  const getDirectionStyles: (pm: placementType) => React.CSSProperties = (
-    pm: placementType
-  ) => {
-    switch (pm) {
-      case 'bottomleft':
-        return {left: 0, top: '100%'}
-      case 'bottommiddle':
-        return {left: '50%', top: '100%'}
-      case 'bottomright':
-        return {right: 0, top: '100%'}
-      case 'topleft':
-        return {left: 0, bottom: '100%'}
-      case 'topmiddle':
-        return {left: '50%', bottom: '100%'}
-      case 'topright':
-        return {right: 0, bottom: '100%'}
-    }
-  }
-
-  const getTransformOrigin: (pm: placementType) => React.CSSProperties = (
-    pm: placementType
-  ) => {
-    switch (pm) {
-      case 'bottomleft':
-        return {transformOrigin: '0% 0%'}
-      case 'bottommiddle':
-        return {transformOrigin: '0% 0%'}
-      case 'bottomright':
-        return {transformOrigin: '100% 0%'}
-      case 'topleft':
-        return {transformOrigin: '0% 100%'}
-      case 'topmiddle':
-        return {transformOrigin: '0% 100%'}
-      case 'topright':
-        return {transformOrigin: '100% 100%'}
-    }
-  }
-
   const dropdownElementStyles: React.CSSProperties = {}
   const dropdownMenuStyles: any = {
     zIndex: 100,
     whiteSpace: 'nowrap',
-    ...getDirectionStyles(placement),
-    ...getTransformOrigin(placement),
+    ...getPlacement(placement),
     ...style
   }
 
