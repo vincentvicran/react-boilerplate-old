@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/material": "^5.10.5",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "chroma-js": "^2.4.2",
