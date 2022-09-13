@@ -54,7 +54,9 @@ export const Tooltip = ({
     from: 0,
     enter: 1,
     exit: 0,
-    ...AnimationConfigUtils.POWER4
+    config: {
+      ...AnimationConfigUtils.POWER4
+    }
   })
 
   const triggerAnimation = useCallback(
