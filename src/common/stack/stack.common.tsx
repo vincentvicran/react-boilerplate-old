@@ -1,6 +1,7 @@
 import {Children, CSSProperties} from 'react'
 
 import Theme from 'src/theme'
+import {useMedia} from 'src/hooks'
 
 interface StackProps {
   direction: 'vertical' | 'horizontal'
@@ -63,3 +64,19 @@ interface VStackProps extends Omit<StackProps, 'direction'> {}
 export const VStack = (props: VStackProps) => (
   <Stack {...props} direction="vertical" />
 )
+
+interface ResponsiveStackProps extends Omit<StackProps, 'direction'> {
+  breakpoint?: keyof ReturnType<typeof useMedia>
+}
+
+export const ResponsiveStack = ({
+  breakpoint = 'sm',
+  ...restProps
+}: ResponsiveStackProps) => {
+  const media = useMedia()
+  const shouldBreak = !media[breakpoint]
+
+  return (
+    <Stack {...restProps} direction={shouldBreak ? 'vertical' : 'horizontal'} />
+  )
+}

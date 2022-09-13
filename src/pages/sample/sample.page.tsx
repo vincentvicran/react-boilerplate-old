@@ -5,7 +5,7 @@ import {Toast, useToast} from 'src/common/toast'
 import {Modal} from 'src/common/modal'
 import {Dropdown} from 'src/common/dropdown'
 import {Menu, MenuItem, MenuSeparator} from 'src/common/menu'
-import {HStack, VStack} from 'src/common/stack'
+import {HStack, VStack, ResponsiveStack} from 'src/common/stack'
 import {Tabs, TabsPane} from 'src/common/tabs'
 import {Tooltip} from 'src/common/tooltip'
 
@@ -64,14 +64,17 @@ export const Sample = () => {
         <div style={{background: 'green', color: 'white'}}>VStack Item 3</div>
       </VStack>
 
-      <HStack style={{backgroundColor: 'yellow', padding: 2}} gap="$0_5">
+      <ResponsiveStack
+        style={{backgroundColor: 'yellow', padding: 2}}
+        gap="$0_5"
+      >
         <div style={{flex: 1, height: 200, backgroundColor: 'green'}}>
           HStack Item 1
         </div>
         <div style={{flex: 1, height: 200, backgroundColor: 'red'}}>
           HStack Item 2
         </div>
-      </HStack>
+      </ResponsiveStack>
 
       <h2>Tabs</h2>
       <Tabs>
