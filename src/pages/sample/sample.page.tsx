@@ -15,6 +15,28 @@ export const Sample = () => {
 
   return (
     <>
+      <h2>Tooltip</h2>
+      <HStack gap="$2" wrap>
+        <Tooltip title="tooltip title" placement="bottomleft">
+          <Button color="primary">BOTTOM LEFT</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="bottommiddle">
+          <Button color="primary">BOTTOM MIDDLE</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="bottomright">
+          <Button color="primary">BOTTOM RIGHT</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="topleft">
+          <Button color="primary">TOP LEFT</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="topmiddle">
+          <Button color="primary">TOP MIDDLE</Button>
+        </Tooltip>
+        <Tooltip title="tooltip title" placement="topright">
+          <Button color="primary">TOP RIGHT</Button>
+        </Tooltip>
+      </HStack>
+
       <h2>Toast</h2>
       <Button color="success" onClick={() => toast.success('Some message')}>
         Open Toast
@@ -91,28 +113,6 @@ export const Sample = () => {
           Tab Three Content
         </TabsPane>
       </Tabs>
-
-      <h2>Tooltip</h2>
-      <HStack gap="$2" wrap>
-        <Tooltip title="tooltip title" placement="bottomleft">
-          <Button color="primary">BOTTOM LEFT</Button>
-        </Tooltip>
-        <Tooltip title="tooltip title" placement="bottommiddle">
-          <Button color="primary">BOTTOM MIDDLE</Button>
-        </Tooltip>
-        <Tooltip title="tooltip title" placement="bottomright">
-          <Button color="primary">BOTTOM RIGHT</Button>
-        </Tooltip>
-        <Tooltip title="tooltip title" placement="topleft">
-          <Button color="primary">TOP LEFT</Button>
-        </Tooltip>
-        <Tooltip title="tooltip title" placement="topmiddle">
-          <Button color="primary">TOP MIDDLE</Button>
-        </Tooltip>
-        <Tooltip title="tooltip title" placement="topright">
-          <Button color="primary">TOP RIGHT</Button>
-        </Tooltip>
-      </HStack>
 
       <Modal visible={open} onOutsideClick={() => setOpen(false)}>
         <h3>CONTENT GOES HERE</h3>
