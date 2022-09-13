@@ -1,58 +1,65 @@
 import {Children, CSSProperties} from 'react'
+
 import Theme from 'src/theme'
 
-import {HStackContainer, VStackContainer} from './stack.style'
-
 interface StackProps {
+  direction: 'vertical' | 'horizontal'
   children?: any
+  inline?: boolean
+  wrap?: boolean
   gap?: keyof typeof Theme.space
   style?: CSSProperties
   justify?: CSSProperties['justifyContent']
   align?: CSSProperties['alignItems']
 }
 
-export const HStack = ({
+const Stack = ({
+  wrap = false,
+  inline = false,
   children,
   gap = '$0',
   style,
   justify = 'flex-start',
-  align = 'stretch'
+  align = 'stretch',
+  direction
 }: StackProps) => {
   return (
-    <HStackContainer
-      style={{...style, justifyContent: justify, alignItems: align}}
+    <div
+      style={{
+        ...style,
+        display: inline ? 'inline-flex' : 'flex',
+        flexDirection: direction === 'vertical' ? 'column' : 'row',
+        flexWrap: wrap ? 'wrap' : 'nowrap',
+        justifyContent: justify,
+        alignItems: align
+      }}
     >
       {Children.map(children, (child: React.ReactElement<any>, index) => (
         <>
           {child}
           {index !== Children.count(children) - 1 && (
-            <div style={{width: Theme.space[gap]}} />
+            <>
+              {direction === 'vertical' ? (
+                <div style={{height: Theme.space[gap]}} />
+              ) : (
+                <div style={{width: Theme.space[gap]}} />
+              )}
+            </>
           )}
         </>
       ))}
-    </HStackContainer>
+    </div>
   )
 }
 
-export const VStack = ({
-  children,
-  gap = '$0',
-  style,
-  justify = 'flex-start',
-  align = 'stretch'
-}: StackProps) => {
-  return (
-    <VStackContainer
-      style={{...style, justifyContent: justify, alignItems: align}}
-    >
-      {Children.map(children, (child: React.ReactElement<any>, index) => (
-        <>
-          {child}
-          {index !== Children.count(children) - 1 && (
-            <div style={{height: Theme.space[gap]}} />
-          )}
-        </>
-      ))}
-    </VStackContainer>
-  )
-}
+interface HStackProps extends Omit<StackProps, 'direction'> {}
+
+export const HStack = (props: HStackProps) => (
+  <Stack {...props} direction="horizontal" />
+)
+
+interface VStackProps extends Omit<StackProps, 'direction'> {}
+
+export const VStack = (props: VStackProps) => (
+  <Stack {...props} direction="vertical" />
+)

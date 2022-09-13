@@ -64,6 +64,15 @@ export const Sample = () => {
         <div style={{background: 'green', color: 'white'}}>VStack Item 3</div>
       </VStack>
 
+      <HStack style={{backgroundColor: 'yellow', padding: 2}} gap="$0_5">
+        <div style={{flex: 1, height: 200, backgroundColor: 'green'}}>
+          HStack Item 1
+        </div>
+        <div style={{flex: 1, height: 200, backgroundColor: 'red'}}>
+          HStack Item 2
+        </div>
+      </HStack>
+
       <h2>Tabs</h2>
       <Tabs>
         <TabsPane id="one" title="Tab One">
@@ -81,7 +90,7 @@ export const Sample = () => {
       </Tabs>
 
       <h2>Tooltip</h2>
-      <HStack gap="$2">
+      <HStack gap="$2" wrap>
         <Tooltip title="tooltip title" placement="bottomleft">
           <Button color="primary">BOTTOM LEFT</Button>
         </Tooltip>
