@@ -35,6 +35,10 @@ export interface TabsRef {
   setActiveId: (tabId: string) => void
 }
 
+export const useTabsRef = () => {
+  return useRef<TabsRef>(null)
+}
+
 const AnimatedIndicator = makeAnimatedComponent(Indicator)
 export const Tabs = React.forwardRef<TabsRef, TabsProps>(
   (

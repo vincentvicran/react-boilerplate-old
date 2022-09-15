@@ -1,4 +1,9 @@
-import {useRef} from 'react'
+import React, {
+  useRef,
+  forwardRef,
+  useCallback,
+  useImperativeHandle
+} from 'react'
 import {
   makeAnimatedComponent,
   useMountedValue,
@@ -11,10 +16,79 @@ import {useDisableScroll} from 'src/hooks'
 
 import {ModalContainer, ModalContent} from './modal.style'
 
+import {ReactNode, useState} from 'react'
+
+export interface ModalProps
+  extends Pick<
+    ModalDialogProps,
+    'style' | 'isAnimated' | 'animationConfig' | 'disableScroll'
+  > {
+  children: ({close}: {close: () => void}) => React.ReactNode
+  trigger?: ({active}: {active: boolean}) => ReactNode
+  closeOnOverlayClick?: boolean
+}
+
+export interface ModalRef {
+  open: () => void
+  close: () => void
+}
+
+export const useModalRef = () => {
+  return useRef<ModalRef>(null)
+}
+
+export const Modal = forwardRef<ModalRef, ModalProps>(
+  ({trigger, children, closeOnOverlayClick = true, ...restProps}, ref) => {
+    const [visible, setVisible] = useState(false)
+
+    const open = useCallback(() => {
+      setVisible(true)
+    }, [])
+
+    const close = useCallback(() => {
+      setVisible(false)
+    }, [])
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        open,
+        close
+      }),
+      [open, close]
+    )
+
+    return (
+      <>
+        {trigger && (
+          <span
+            onClick={(e) => {
+              e.preventDefault()
+              setVisible(true)
+            }}
+          >
+            {trigger({active: visible})}
+          </span>
+        )}
+
+        <ModalDialog
+          visible={visible}
+          onOutsideClick={
+            closeOnOverlayClick ? () => setVisible(false) : undefined
+          }
+          {...restProps}
+        >
+          {children({close})}
+        </ModalDialog>
+      </>
+    )
+  }
+)
+
 const AnimatedModalContainer = makeAnimatedComponent(ModalContainer)
 const AnimatedModalContent = makeAnimatedComponent(ModalContent)
 
-interface ModalProps {
+interface ModalDialogProps {
   children: React.ReactNode
   visible: boolean
   onOutsideClick?: () => void
@@ -24,7 +98,7 @@ interface ModalProps {
   disableScroll?: boolean
 }
 
-export const Modal = ({
+const ModalDialog = ({
   children,
   visible,
   onOutsideClick,
@@ -32,7 +106,7 @@ export const Modal = ({
   isAnimated = true,
   animationConfig = AnimationConfigUtils.POWER4,
   disableScroll = false
-}: ModalProps) => {
+}: ModalDialogProps) => {
   const modalRef = useRef<HTMLElement>(null)
   const transition = useMountedValue(visible, {
     from: 0,

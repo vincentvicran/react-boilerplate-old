@@ -1,17 +1,15 @@
-import {useState} from 'react'
-
 import {Button} from 'src/common/button'
 import {Toast, useToast} from 'src/common/toast'
 import {Modal} from 'src/common/modal'
 import {Dropdown} from 'src/common/dropdown'
 import {Menu, MenuItem, MenuSeparator} from 'src/common/menu'
 import {HStack, VStack, ResponsiveStack} from 'src/common/stack'
-import {Tabs, TabsPane} from 'src/common/tabs'
+import {Tabs, TabsPane, useTabsRef} from 'src/common/tabs'
 import {Tooltip} from 'src/common/tooltip'
 
 export const Sample = () => {
-  const [open, setOpen] = useState(false)
   const {handler, toast} = useToast()
+  const tabsRef = useTabsRef()
 
   return (
     <>
@@ -43,9 +41,19 @@ export const Sample = () => {
       </Button>
 
       <h2>Modal</h2>
-      <Button color="info" onClick={() => setOpen(true)}>
-        Open Modal
-      </Button>
+      <Modal
+        trigger={() => <Button color="primary">OPEN MODAL</Button>}
+        closeOnOverlayClick={false}
+      >
+        {(modal) => (
+          <div>
+            CONTENT GOES HERE
+            <Button color="error" onClick={() => modal.close()}>
+              CLOSE
+            </Button>
+          </div>
+        )}
+      </Modal>
 
       <h2>Menu</h2>
       <Menu trigger={() => <Button color="secondary">Open Menu</Button>}>
@@ -99,9 +107,12 @@ export const Sample = () => {
       </ResponsiveStack>
 
       <h2>Tabs</h2>
-      <Tabs>
+      <Tabs ref={tabsRef}>
         <TabsPane id="one" title="Tab One">
           Tab One Content
+          <Button onClick={() => tabsRef.current?.setActiveId('two')}>
+            GOTO TAB TWO
+          </Button>
         </TabsPane>
         <TabsPane
           id="two"
@@ -113,13 +124,6 @@ export const Sample = () => {
           Tab Three Content
         </TabsPane>
       </Tabs>
-
-      <Modal visible={open} onOutsideClick={() => setOpen(false)}>
-        <h3>CONTENT GOES HERE</h3>
-        <Button color="error" onClick={() => setOpen(false)}>
-          Close Modal
-        </Button>
-      </Modal>
 
       <Toast {...handler} />
     </>
