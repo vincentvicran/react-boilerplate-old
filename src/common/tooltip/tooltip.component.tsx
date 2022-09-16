@@ -1,9 +1,10 @@
-import {PropsWithChildren, useCallback, useState} from 'react'
+import {PropsWithChildren, useCallback, useRef, useState} from 'react'
 import {
   AnimationConfigUtils,
   interpolate,
   makeAnimatedComponent,
-  useMountedValue
+  useMountedValue,
+  useOutsideClick
 } from 'react-ui-animate'
 
 import {
@@ -40,6 +41,7 @@ const getPlacement = (placement: Placement): React.CSSProperties => {
 interface TooltipProps extends PropsWithChildren {
   title: string
   placement?: Placement
+  closeOnClick?: boolean
 }
 
 const AnimatedTooltipContent = makeAnimatedComponent(TooltipContent)
@@ -47,8 +49,10 @@ const AnimatedTooltipContentText = makeAnimatedComponent(TooltipContentText)
 export const Tooltip = ({
   title,
   placement = 'bottommiddle',
+  closeOnClick = false,
   children
 }: TooltipProps) => {
+  const tooltipRef = useRef<HTMLSpanElement>(null)
   const [visible, setVisible] = useState(false)
   const mv = useMountedValue(visible, {
     from: 0,
@@ -56,6 +60,9 @@ export const Tooltip = ({
     exit: 0,
     config: {
       ...AnimationConfigUtils.POWER4
+    },
+    exitConfig: {
+      duration: 80
     }
   })
 
@@ -67,10 +74,18 @@ export const Tooltip = ({
     []
   )
 
+  useOutsideClick(tooltipRef, () => {
+    if (visible) {
+      setVisible(false)
+    }
+  })
+
   return (
     <TooltipContainer
+      ref={tooltipRef}
       onMouseEnter={(e) => triggerAnimation(e, true)}
       onMouseLeave={(e) => triggerAnimation(e, false)}
+      onClick={closeOnClick ? (e) => triggerAnimation(e, false) : undefined}
     >
       {children}
 

@@ -13,10 +13,12 @@ import {IoMdListBox} from 'react-icons/io'
 import {AiFillDelete} from 'react-icons/ai'
 import {MdEdit} from 'react-icons/md'
 
-import {HStack} from 'src/common/stack'
+import {HStack, VStack} from 'src/common/stack'
 import {Tooltip} from 'src/common/tooltip'
+import {Modal} from 'src/common/modal'
 
 import {ActionButton, StyledTableRow, StyledTableCell} from './table.style'
+import {Button} from '../button'
 
 export const Table = <T, K extends Extract<keyof T, string>>({
   columns,
@@ -175,16 +177,52 @@ export const Table = <T, K extends Extract<keyof T, string>>({
                           )}
 
                           {actionsRef.current?.onDelete && (
-                            <Tooltip title="Delete" placement="topright">
-                              <ActionButton
-                                className="action-delete"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  actionsRef.current?.onDelete?.(item)
-                                }}
+                            <Tooltip
+                              title="Delete"
+                              placement="topright"
+                              closeOnClick
+                            >
+                              <Modal
+                                trigger={() => (
+                                  <ActionButton className="action-delete">
+                                    <AiFillDelete size={22} />
+                                  </ActionButton>
+                                )}
                               >
-                                <AiFillDelete size={22} />
-                              </ActionButton>
+                                {(modal) => (
+                                  <VStack gap="$4">
+                                    <div
+                                      style={{
+                                        fontWeight: 'bold'
+                                      }}
+                                    >
+                                      Are you sure you want to delete ?
+                                    </div>
+                                    <HStack gap="$2" justify="end">
+                                      <Button
+                                        variant="outlined"
+                                        color="default"
+                                        onClick={(e) => {
+                                          e.preventDefault()
+                                          modal.close()
+                                        }}
+                                      >
+                                        Cancel
+                                      </Button>
+                                      <Button
+                                        color="error"
+                                        onClick={(e) => {
+                                          e.preventDefault()
+                                          actionsRef.current?.onDelete?.(item)
+                                          modal.close()
+                                        }}
+                                      >
+                                        Delete
+                                      </Button>
+                                    </HStack>
+                                  </VStack>
+                                )}
+                              </Modal>
                             </Tooltip>
                           )}
                         </HStack>

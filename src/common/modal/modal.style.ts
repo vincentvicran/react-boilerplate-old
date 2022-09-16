@@ -20,9 +20,9 @@ export const ModalContent = styled.div`
   max-width: 90vw;
   max-height: 80vh;
   overflow-y: auto;
-  padding: 20px;
+  padding: ${Theme.space.$4};
   background: #ffffff;
   border-radius: ${Theme.radius.$default};
   box-shadow: ${Theme.shadows.$z6};
-  font-family: Arial;
+  text-align: left;
 `
