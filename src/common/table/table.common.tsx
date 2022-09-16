@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useRef} from 'react'
+import {useCallback, useMemo, useRef} from 'react'
 import {useNavigation} from 'react-auth-navigation'
 import {
   TableContainer as MaterialTableContainer,
@@ -58,13 +58,7 @@ export const Table = <T, K extends Extract<keyof T, string>>({
     () => new URLSearchParams(location.search),
     [location.search]
   )
-  const page = Number(searchParams.get('page')) ?? 1
-
-  useEffect(() => {
-    if (!page) {
-      navigate(location.pathname + `?page=${1}`)
-    }
-  }, [page, location])
+  const page = searchParams.get('page')
 
   const onChange = useCallback(
     (newPageNumber: number) => {
@@ -250,7 +244,7 @@ export const Table = <T, K extends Extract<keyof T, string>>({
               pagination.totalCount / (pagination.perPage ?? 10)
             )}
             boundaryCount={1}
-            page={page}
+            page={page ? Number(page) : 1}
             variant="outlined"
             shape="rounded"
             onChange={(e, page) => {
