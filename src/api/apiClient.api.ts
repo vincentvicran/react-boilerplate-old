@@ -36,9 +36,11 @@ const getParsedUrl = (
 
   let urlString = ''
   Object.keys(params).forEach((key, index, array) => {
-    urlString += `${index === 0 ? '?' : ''}${key}=${params[key]}${
-      index !== array.length - 1 ? '&' : ''
-    }`
+    if (params[key] !== undefined && params[key] !== null) {
+      urlString += `${index === 0 ? '?' : ''}${key}=${params[key]}${
+        index !== array.length - 1 ? '&' : ''
+      }`
+    }
   })
 
   return url + urlString
