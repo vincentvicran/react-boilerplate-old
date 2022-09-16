@@ -6,6 +6,7 @@ import {Menu, MenuItem, MenuSeparator} from 'src/common/menu'
 import {HStack, VStack, ResponsiveStack} from 'src/common/stack'
 import {Tabs, TabsPane, useTabsRef} from 'src/common/tabs'
 import {Tooltip} from 'src/common/tooltip'
+import {Table} from 'src/common/table'
 
 export const Sample = () => {
   const {handler, toast} = useToast()
@@ -13,6 +14,9 @@ export const Sample = () => {
 
   return (
     <>
+      <h2>Table</h2>
+      <TableComponent />
+
       <h2>Tooltip</h2>
       <HStack gap="$2" wrap>
         <Tooltip title="tooltip title" placement="bottomleft">
@@ -127,5 +131,54 @@ export const Sample = () => {
 
       <Toast {...handler} />
     </>
+  )
+}
+
+const TableComponent = () => {
+  return (
+    <Table
+      columns={[
+        {
+          field: 'name',
+          name: 'Name'
+        },
+        {
+          field: 'age',
+          name: 'Age',
+          render: (data) => <div>{data}</div>
+        },
+        {
+          field: 'address',
+          name: 'Address',
+          render: ({line1}) => <div>Address: {line1}</div>
+        }
+      ]}
+      data={Array(5)
+        .fill({
+          name: 'Dipesh',
+          age: 100,
+          address: {
+            line1: 'abc',
+            line2: 'cde'
+          }
+        })
+        .map((d) => d)}
+      loading={false}
+      actions={{
+        onEdit: (data) => {
+          console.log('EDIT', data)
+        },
+        onView: (data) => {
+          console.log('VIEW', data)
+        },
+        onDelete: (data) => {
+          console.log('DELETE', data)
+        }
+      }}
+      pagination={{
+        perPage: 5,
+        totalCount: 20
+      }}
+    />
   )
 }

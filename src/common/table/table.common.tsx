@@ -1,183 +1,227 @@
+import {useCallback, useEffect, useMemo, useRef} from 'react'
 import {useNavigation} from 'react-auth-navigation'
 import {
+  TableContainer as MaterialTableContainer,
   Table as MaterialTable,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Pagination,
-  styled
+  TableBody as MaterialTableBody,
+  TableHead as MaterialTableHead,
+  TableRow as MaterialTableRow,
+  Paper as MaterialPaper,
+  Pagination as MaterialPagination
 } from '@mui/material'
+import {IoMdListBox} from 'react-icons/io'
+import {AiFillDelete} from 'react-icons/ai'
 import {MdEdit} from 'react-icons/md'
-import {FaClipboardList} from 'react-icons/fa'
 
+import {HStack} from 'src/common/stack'
 import {Tooltip} from 'src/common/tooltip'
 
-const StyledTableRow = styled<any>(TableRow)(({theme}) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover
-  },
-  '&:hover': {
-    backgroundColor: theme.palette.action.selected
-  }
-}))
+import {ActionButton, StyledTableRow, StyledTableCell} from './table.style'
 
-interface CommonTableProps {
-  columns?: any
-  data?: any
-  actions?: any
-  dataLoader?: any
-  totalCount?: any
-  deleteLoader?: any
-  onDeleteHandler?: any
-  onEditHandler?: any
-  onViewHandler?: any
-  // viewBug?: any;
-}
-export const Table = ({
+export const Table = <T, K extends Extract<keyof T, string>>({
   columns,
-  data,
+  data = [],
   actions,
-  dataLoader,
-  totalCount,
-  deleteLoader,
-  onDeleteHandler,
-  onEditHandler,
-  onViewHandler
-}: CommonTableProps) => {
+  loading = false,
+  pagination
+}: {
+  columns: Array<{
+    field: K
+    name: string
+    render?: (item: any) => React.ReactNode
+  }>
+  data: Array<T>
+  actions?: {
+    onEdit?: (item: T) => void
+    onDelete?: (item: T) => void
+    onView?: (item: T) => void
+  }
+  loading?: boolean
+  pagination?: {
+    perPage?: number
+    totalCount: number
+  }
+}) => {
   const {location, navigation} = useNavigation()
   const {navigate} = navigation
-  // const [visible, setVisible] = useState(false);
-  // const [activeRow, setActiveRow] = useState();
-  let query = useQuery()
+  const actionsRef = useRef(actions)
+  const hasActions = useMemo(() => {
+    if (actionsRef.current) {
+      return Object.keys(actionsRef.current).length > 0
+    }
+    return false
+  }, [])
 
-  const pageNumber = query.get('page') || 1
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  )
+  const page = Number(searchParams.get('page')) ?? 1
 
-  function useQuery() {
-    return new URLSearchParams(location?.search)
-  }
+  useEffect(() => {
+    if (!page) {
+      navigate(location.pathname + `?page=${1}`)
+    }
+  }, [page, location])
 
-  const page = async (event: any, newPage = 1) => {
-    event.preventDefault()
-    navigate(location.pathname + `?page=` + Number(newPage))
-  }
+  const onChange = useCallback(
+    (newPageNumber: number) => {
+      navigate(location.pathname + `?page=${newPageNumber}`)
+    },
+    [location]
+  )
 
   return (
-    <div className="custom-table">
-      <TableContainer
-        component={Paper}
-        elevation={0}
+    <>
+      <MaterialTableContainer
+        component={MaterialPaper}
         variant="outlined"
-        style={{border: '1px solid #f1f1f1', paddingBottom: 8}}
+        style={{
+          border: '1px solid #e1e1e1',
+          paddingBottom: 8
+        }}
       >
         <MaterialTable aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              {columns.map((item: any, i: number) => {
+          <MaterialTableHead>
+            <MaterialTableRow>
+              {columns.map((item, i) => {
                 if (item.name) {
                   return (
-                    <TableCell key={i} align={`${i === 0 ? 'left' : 'center'}`}>
-                      {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                    </TableCell>
+                    <StyledTableCell
+                      key={i}
+                      align={`${i === 0 ? 'left' : 'center'}`}
+                    >
+                      {item.name}
+                    </StyledTableCell>
                   )
                 } else {
                   return (
-                    <TableCell key={i} align={`${i === 0 ? 'left' : 'center'}`}>
-                      {item.field.charAt(0).toUpperCase() + item.field.slice(1)}
-                    </TableCell>
+                    <StyledTableCell
+                      key={i}
+                      align={`${i === 0 ? 'left' : 'center'}`}
+                    >
+                      {item.field}
+                    </StyledTableCell>
                   )
                 }
               })}
-              {actions ? <TableCell align="center">Actions</TableCell> : null}
-            </TableRow>
-          </TableHead>
-          {data?.length ? (
-            <TableBody>
-              {data.map((item: any, index: number) => {
+              {hasActions ? (
+                <StyledTableCell align="center">Actions</StyledTableCell>
+              ) : null}
+            </MaterialTableRow>
+          </MaterialTableHead>
+
+          {loading ? (
+            <MaterialTableBody>
+              <MaterialTableRow>
+                <StyledTableCell align="center" colSpan={columns.length + 1}>
+                  Loading...
+                </StyledTableCell>
+              </MaterialTableRow>
+            </MaterialTableBody>
+          ) : data.length > 0 ? (
+            <MaterialTableBody>
+              {data.map((item, index) => {
                 return (
                   <StyledTableRow key={index}>
-                    {columns.map((col: any, i: number) => {
+                    {columns.map((col, i) => {
                       if (col.render) {
                         return (
-                          <TableCell
+                          <StyledTableCell
                             key={i}
                             align={`${i === 0 ? 'left' : 'center'}`}
                           >
-                            <p>{col.render(item[col.field], item.id)}</p>
-                          </TableCell>
+                            {col.render(item[col.field])}
+                          </StyledTableCell>
                         )
                       } else {
                         return (
-                          <TableCell
+                          <StyledTableCell
                             key={i}
                             align={`${i === 0 ? 'left' : 'center'}`}
                           >
-                            <p>{item[col.field]}</p>
-                          </TableCell>
+                            {item[col.field] as string}
+                          </StyledTableCell>
                         )
                       }
                     })}
-                    {actions ? (
-                      <TableCell align="center" width={50}>
-                        <div style={{display: 'flex'}}>
-                          {onViewHandler && (
-                            <div
-                              onClick={() => {
-                                return onViewHandler(item)
-                              }}
-                            >
-                              <Tooltip title="View">
-                                <FaClipboardList size={18} />
-                              </Tooltip>
-                            </div>
+                    {hasActions ? (
+                      <StyledTableCell align="center" width={50}>
+                        <HStack gap="$3">
+                          {actionsRef.current?.onView && (
+                            <Tooltip title="View" placement="topmiddle">
+                              <ActionButton
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  actionsRef.current?.onView?.(item)
+                                }}
+                              >
+                                <IoMdListBox size={22} />
+                              </ActionButton>
+                            </Tooltip>
                           )}
-                          {onEditHandler && (
-                            <div
-                              onClick={() => {
-                                return onViewHandler(item)
-                              }}
-                            >
-                              <Tooltip title="Edit">
-                                <MdEdit size={20} />
-                              </Tooltip>
-                            </div>
+
+                          {actionsRef.current?.onEdit && (
+                            <Tooltip title="Edit" placement="topmiddle">
+                              <ActionButton
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  actionsRef.current?.onEdit?.(item)
+                                }}
+                              >
+                                <MdEdit size={22} />
+                              </ActionButton>
+                            </Tooltip>
                           )}
-                        </div>
-                      </TableCell>
+
+                          {actionsRef.current?.onDelete && (
+                            <Tooltip title="Delete" placement="topright">
+                              <ActionButton
+                                className="action-delete"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  actionsRef.current?.onDelete?.(item)
+                                }}
+                              >
+                                <AiFillDelete size={22} />
+                              </ActionButton>
+                            </Tooltip>
+                          )}
+                        </HStack>
+                      </StyledTableCell>
                     ) : null}
                   </StyledTableRow>
                 )
               })}
-            </TableBody>
-          ) : null}
+            </MaterialTableBody>
+          ) : (
+            <div>No data</div>
+          )}
         </MaterialTable>
-        {!dataLoader && !data?.length ? (
-          <p style={{textAlign: 'center', paddingTop: 20, paddingBottom: 20}}>
-            No Data
-          </p>
-        ) : null}
-        {dataLoader ? <div>Loading</div> : null}
-      </TableContainer>
+      </MaterialTableContainer>
 
-      {!dataLoader && data?.length && totalCount ? (
+      {!loading && data.length > 0 && pagination && pagination.totalCount ? (
         <div style={{width: '100%', display: 'flex'}}>
-          <Pagination
+          <MaterialPagination
             style={{
               marginLeft: 'auto',
               marginTop: 20,
               display: 'inline-block'
             }}
-            count={Math.ceil(totalCount / 10)}
+            count={Math.ceil(
+              pagination.totalCount / (pagination.perPage ?? 10)
+            )}
             boundaryCount={1}
-            page={Number(pageNumber)}
+            page={page}
             variant="outlined"
             shape="rounded"
-            onChange={page}
+            onChange={(e, page) => {
+              e.preventDefault()
+              onChange(page)
+            }}
           />
         </div>
       ) : null}
-    </div>
+    </>
   )
 }
