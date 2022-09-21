@@ -2,8 +2,6 @@ import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
 
 import {getCookie} from 'src/helpers'
 
-import {PathToResponse} from './pathToResponse.api'
-
 // MARK: - instance
 const instance: AxiosInstance = axios.create({
   baseURL:
@@ -46,32 +44,8 @@ const getParsedUrl = (
   return url + urlString
 }
 
-// MARK: - getInstance
-const getInstance =
-  (method: 'get' | 'delete' | 'head' | 'options' | 'post' | 'put' | 'patch') =>
-  <TPath extends keyof PathToResponse>(
-    url: TPath,
-    params?: PathToResponse[TPath]['params'],
-    data?: PathToResponse[TPath]['body'],
-    config?: Omit<
-      AxiosRequestConfig<any>,
-      'baseURL' | 'url' | 'method' | 'data'
-    >
-  ): Promise<AxiosResponse<PathToResponse[TPath]['response']>> =>
-    instance({url: getParsedUrl(url, params), method, data, ...config})
-
-const api = {
-  get: getInstance('get'),
-  delete: getInstance('delete'),
-  head: getInstance('head'),
-  options: getInstance('options'),
-  post: getInstance('post'),
-  put: getInstance('put'),
-  patch: getInstance('patch')
-}
-
-// MARK: apiv2
-const apiv2 =
+// MARK: api
+const api =
   <
     ApiResponse extends unknown,
     ApiParams extends {[key: string]: number | string} = {},
@@ -90,4 +64,4 @@ const apiv2 =
   ): Promise<AxiosResponse<ApiResponse>> =>
     instance({url: getParsedUrl(url, params), method, data, ...config})
 
-export {instance, api, apiv2}
+export {instance, api}
