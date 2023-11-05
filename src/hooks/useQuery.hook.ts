@@ -1,8 +1,6 @@
-import {
-  Params,
-  useLocation,
-  useParams as useParamFromDom
-} from 'react-router-dom'
+import { useLocation, useParams as useParamFromDom } from 'react-router-dom'
+
+import type { Params } from 'react-router-dom'
 
 export function useQuery(queryStr: string | null = null) {
   const location = useLocation()
@@ -18,7 +16,7 @@ export function useQuery(queryStr: string | null = null) {
 }
 
 export function useParams(
-  param?: string
+  param?: string,
 ): string | Readonly<Params<string>> | undefined {
   const params = useParamFromDom()
 

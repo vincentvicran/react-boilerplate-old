@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import {LoaderDescriptionProps} from './loader.type'
-import {getLightDarkColor} from 'src/helpers'
+import { getLightDarkColor } from 'src/helpers'
+
+import type { LoaderDescriptionProps } from './loader.type'
 
 const LoaderContainer = styled.div`
   font-family: Inter;
@@ -25,9 +26,9 @@ const LoaderContent = styled.div`
 `
 
 const LoaderDescription = styled.div<LoaderDescriptionProps>`
-  font-size: ${({size}) => (size * 3) / 5 + `px`};
-  color: ${({color}) => getLightDarkColor(0.2, color)};
+  font-size: ${({ size }) => (size * 3) / 5 + `px`};
+  color: ${({ color }) => getLightDarkColor(0.2, color)};
   margin-top: 10px;
 `
 
-export {LoaderContainer, LoaderChildren, LoaderContent, LoaderDescription}
+export { LoaderContainer, LoaderChildren, LoaderContent, LoaderDescription }

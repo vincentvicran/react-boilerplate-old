@@ -2,15 +2,18 @@ const path = require('path')
 
 module.exports = {
   extends: ['react-app'],
-  plugins: ['react', 'import'],
   ignorePatterns: ['**/*.d.ts'],
+  plugins: ['react', 'import'],
   rules: {
     'no-console': 'warn',
     'no-useless-escape': 'off',
-    'no-unused-vars': [
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
       'warn',
       {
         argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
       },
     ],
     'import/order': [

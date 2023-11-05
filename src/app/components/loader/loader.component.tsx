@@ -1,16 +1,16 @@
-import {useState} from 'react'
-import {getLightDarkColor} from 'src/helpers'
+import { useState } from 'react'
 
-import {ThreeDotsLoader, FourDotsLoader} from './components'
+import { useMeasure } from 'src/hooks'
+import { getLightDarkColor } from 'src/helpers'
+import { ThreeDotsLoader, FourDotsLoader } from './components'
 
 import {
   LoaderChildren,
   LoaderContainer,
   LoaderContent,
-  LoaderDescription
+  LoaderDescription,
 } from './loader.styled'
-import {LoaderContentStyle, LoaderProps} from './loader.type'
-import {useMeasure} from 'src/hooks'
+import { LoaderContentStyle, LoaderProps } from './loader.type'
 
 export const Loader = ({
   variant = 'four',
@@ -19,20 +19,20 @@ export const Loader = ({
   size = 20,
   type = 'rotate',
   loading,
-  style = {borderRadius: 0},
+  style = { borderRadius: 0 },
   description,
   background = {
     blur: 0,
     backgroundColor: color,
     opacity: 0.9,
-    shade: 1
-  }
+    shade: 1,
+  },
 }: LoaderProps) => {
-  const {blur, backgroundColor, opacity, shade} = background
+  const { blur, backgroundColor, opacity, shade } = background
 
   const [height, setHeight] = useState<any>(0)
 
-  const bind = useMeasure(({height}: any) => {
+  const bind = useMeasure(({ height }: any) => {
     setHeight(height)
   })
 
@@ -48,7 +48,7 @@ export const Loader = ({
             position: 'absolute',
             height,
             backgroundColor: getLightDarkColor(shade, backgroundColor, opacity),
-            backdropFilter: `blur(${blur}px)`
+            backdropFilter: `blur(${blur}px)`,
           }}
         >
           {variant === 'four' ? (
