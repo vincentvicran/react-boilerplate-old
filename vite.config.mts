@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths({ root: '.' }), eslint()],
   resolve: {
     alias: {
-      src: path.resolve(__dirname, '/src'),
+      src: path.resolve(__dirname, 'src'),
     },
   },
   server: {
