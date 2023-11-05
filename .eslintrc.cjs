@@ -3,6 +3,7 @@ const path = require('path')
 module.exports = {
   extends: ['react-app'],
   plugins: ['react', 'import'],
+  ignorePatterns: ['**/*.d.ts'],
   rules: {
     'no-console': 'warn',
     'no-useless-escape': 'off',
@@ -13,7 +14,7 @@ module.exports = {
       },
     ],
     'import/order': [
-      'warn',
+      'error',
       {
         pathGroups: [
           {

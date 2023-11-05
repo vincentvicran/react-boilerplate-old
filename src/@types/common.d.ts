@@ -66,7 +66,7 @@ declare namespace Com {
     label?: string
     handleCheckboxChange: (
       name: string,
-      e: React.ChangeEvent<HTMLInputElement>
+      e: React.ChangeEvent<HTMLInputElement>,
     ) => void
     check: boolean
     labelStyle?: React.CSSProperties
@@ -110,7 +110,7 @@ declare namespace Com {
 
   interface CustomModalProps {
     displayElement: React.ReactNode
-    children(options: {onCloseModalHandler(): any}): React.ReactNode
+    children(options: { onCloseModalHandler(): any }): React.ReactNode
     onOutSideClickHandler?: boolean
     modalStyles?: React.CSSProperties
     width?: string | number
@@ -234,16 +234,18 @@ declare namespace Com {
           item?: Partial<T[K]>,
           itemId?: number,
           itemData?: T,
-          index?: number
+          index?: number,
         ) => React.ReactNode)
     width?: string
     height?: string
     trueValue?: string
     falseValue?: string
-    selectOptions?: Array<{value: string | number; label: string}>
-    filterOptions?: Array<{value: string | number; label: string}>
+    selectOptions?: Array<{ value: string | number; label: string }>
+    filterOptions?: Array<{ value: string | number; label: string }>
     inputProps?: Partial<Com.InputFieldProps>
-    selectProps?: Partial<Com.SelectFieldProps<{value: string; label: string}>>
+    selectProps?: Partial<
+      Com.SelectFieldProps<{ value: string; label: string }>
+    >
     checkboxProps?: Partial<Com.CheckBoxProps>
   }
 
@@ -472,7 +474,7 @@ declare namespace Com {
       item?: Partial<T[K]>,
       itemId?: number,
       itemData?: T,
-      index?: number
+      index?: number,
     ) => React.ReactNode
   }
 
@@ -509,7 +511,7 @@ declare namespace Com {
   interface keyValueTableDataProps {
     title: string
     name: string
-    options?: {title: string; value: string}[]
+    options?: { title: string; value: string }[]
     disabled: boolean
     placeholder?: string
     value: any
@@ -585,7 +587,7 @@ declare namespace Com {
     onSave?: (
       croppedImge: string,
       imageName: string,
-      callBack: () => void
+      callBack: () => void,
     ) => void
     onRestoreLoading: boolean
     onRestore: (images: string, cb: () => void) => void
@@ -613,7 +615,7 @@ declare namespace Com {
     value: string | null
     type?: string
     disabled?: boolean
-    options?: {title: string; value: string}[]
+    options?: { title: string; value: string }[]
     placeholder?: string
   }
   interface KeyValueTableProps {
@@ -641,7 +643,7 @@ declare namespace Com {
       imageData,
       onUploadImage,
       onRemove,
-      deleteAllHandler
+      deleteAllHandler,
     }: {
       imageData: ImageDataTypes[]
       onUploadImage: (a: any) => void
