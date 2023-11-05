@@ -1,21 +1,14 @@
-import {useNavigate} from 'react-router-dom'
-import {HStack, VStack} from '../stack'
+import { useNavigate } from 'react-router-dom'
+import { HStack, VStack } from '../stack'
 
 export const Footer = () => {
   const navigate = useNavigate()
   return (
     <VStack className="footer-react-container">
-      <div className="footer-react-logo">
-        <img
-          src="/assets/images/v2k-ai-logo.svg"
-          onClick={() => {
-            window.open('https://v2k.ai', '_blank')
-          }}
-        />
-      </div>
+      <div className="footer-react-logo">Footer</div>
       <div className="footer-react">
         <div className="footer-react-text">
-          © 2023 V2K Ai, Inc. All rights reserved.
+          © 2023 Inc. All rights reserved.
         </div>
         <HStack className="footer-react-nav">
           <div
