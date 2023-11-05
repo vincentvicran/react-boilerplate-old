@@ -18,10 +18,10 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "src": ["./src"]
+      "src": ["src"]
     },
     "types": ["vite/client", "react", "jest"]
   },
-  "include": ["./src/**/*", "src"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
