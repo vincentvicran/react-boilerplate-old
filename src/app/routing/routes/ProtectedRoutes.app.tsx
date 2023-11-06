@@ -1,8 +1,6 @@
 import { useMemo } from 'react'
 import { useLocation, Navigate, Outlet, matchPath } from 'react-router-dom'
 
-import { CompWrapper } from 'src/app/common'
-
 import { useAuth } from '../hooks'
 import { USER_ROLES } from '../roles'
 
@@ -12,9 +10,7 @@ const ProtectedAuth = () => {
   const canAccess = useCanAccessRoute()
   return auth?.isLoggedin ? (
     canAccess?.length > 0 ? (
-      <CompWrapper>
-        <Outlet />
-      </CompWrapper>
+      <Outlet />
     ) : (
       <Navigate to="/" state={{ from: location }} replace />
     )

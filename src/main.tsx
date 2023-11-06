@@ -9,18 +9,11 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 import { AuthProvider } from './app/routing'
 import { Router } from './app/routing/routes'
-import { Footer, VStack } from './app/common'
 
 const MemoChild = () => {
   return (
     <AuthProvider>
-      <VStack
-        justify="space-between"
-        style={{ minHeight: 'calc(100vh - 55px' }}
-      >
-        <App />
-        <Footer />
-      </VStack>
+      <App />
     </AuthProvider>
   )
 }

@@ -1,13 +1,14 @@
-import {RouteObject, createBrowserRouter} from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 
-import {Login, Sample} from 'src/app/pages'
-import {CompWrapper} from 'src/app/common'
+import { Login, Sample } from 'src/app/pages'
 
 import {
   ProtectedAuth,
   PublicAuth,
-  PublicAccessibleAuth
+  // PublicAccessibleAuth,
 } from './ProtectedRoutes.app'
+
+import type { RouteObject } from 'react-router-dom'
 
 export const Router: RouteObject[] = [
   {
@@ -15,17 +16,17 @@ export const Router: RouteObject[] = [
     children: [
       {
         path: '/',
-        element: <Login />
+        element: <Login />,
       },
       {
         path: '/signup',
-        element: <Login />
+        element: <Login />,
       },
       {
         path: '/login',
-        element: <Login />
-      }
-    ]
+        element: <Login />,
+      },
+    ],
   },
   // {
   //   element: <PublicAccessibleAuth />,
@@ -44,37 +45,29 @@ export const Router: RouteObject[] = [
     children: [
       {
         path: '',
-        element: <Sample />
-      }
-    ]
+        element: <Sample />,
+      },
+    ],
   },
 
   {
     path: '*',
-    element: (
-      <CompWrapper>
-        <div>Not found</div>
-      </CompWrapper>
-    )
+    element: <div>Not found</div>,
   },
   {
     path: '/denied',
-    element: (
-      <CompWrapper>
-        <div>denied</div>
-      </CompWrapper>
-    )
-  }
+    element: <div>denied</div>,
+  },
 ]
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Sample />
+    element: <Sample />,
   },
   {
     path: '/sample',
-    element: <Sample />
+    element: <Sample />,
     // loader: rootLoader,
     // children: [
     //   {
@@ -83,5 +76,5 @@ export const router = createBrowserRouter([
     //     loader: teamLoader,
     //   },
     // ],
-  }
+  },
 ])
